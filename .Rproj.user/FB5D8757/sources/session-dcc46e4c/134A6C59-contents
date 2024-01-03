@@ -10,7 +10,7 @@
 #' attribute 'plot_history' that stores the history of plot construction.
 #'
 #' @seealso \code{\link[ggplot2]{ggplot}}
-#'
+#' @importFrom ggplot2 ggplot
 #' @examples
 #' p <- ggplot(mtcars, aes(x=wt, y=mpg))
 #' # the + function has to come from gghistory package
@@ -40,7 +40,6 @@ ggplot <- function(...) {
 #' @param e2 A layer or theme to add to the ggplot object.
 #'
 #' @return A modified ggplot object with updated plot history.
-#'
 #' @examples
 #' p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
 #' attr(p, "plot_history") # View the plot construction history
@@ -50,7 +49,7 @@ ggplot <- function(...) {
 `+.gg` <- function(e1, e2) {
   stopifnot(inherits(e1, "ggplot_history"))
 
-  plot <- ggplot2:::`+.gg`(e1, e2)
+  plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
 
   # Append to the existing history
   if (!is.null(attr(e1, "plot_history"))) {

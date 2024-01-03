@@ -30,7 +30,7 @@ library(gghistory)
 # Create a function which combines a few ggplot layers and returns a ggplot object
 func <- function(x, y) {
   # layers have to be added with +
-  ggplot(mtcars, aes(x=!!as.name(x), y=!!as.name(y))) +
+  ggplot_history(mtcars, aes(x=!!as.name(x), y=!!as.name(y))) +
     geom_point(alpha = 0.4) +
     facet_grid(~gear) +
     theme(axis.title.x = element_blank())
