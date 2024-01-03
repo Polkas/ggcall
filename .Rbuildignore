@@ -1,0 +1,12 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^\.Rhistory$
+^CONTRIBUTING\.md$
+^\.RData$
+^\.Rapp\.history$
+^\.github$
+^\.gitignore$
+^\.git$
+^\.DS_Store$
+^\.devcontainer$
