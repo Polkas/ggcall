@@ -1,0 +1,56 @@
+# gghistory: Retrieve ggplot2 Code History
+
+## Overview
+
+The `gghistory` package enhances the functionality of ggplot2 by enabling users to retrieve the complete code used to generate a ggplot object. This package is particularly useful for understanding and replicating complex ggplot2 plots, especially when the original code is not accessible, e.g. is hidden in the internals of a package.
+
+## Ideal for R Package Developers
+
+gghistory is especially useful for R developers who build their own packages comprising functions that generate ggplot2 plots. These functions often involve multiple layers and complex plotting logic. By using gghistory, developers can make their plotting solutions more transparent and reproducible, thereby enhancing the utility and reliability of their packages. Please note, gghistory is not intended for packages that create custom geom/stat functions.
+
+## Features
+
+- **Code Tracking**: Extends ggplot2's `+` operator and `ggplot` function to track the history of plot construction.
+- **Accessible History**: Easily access the complete sequence of ggplot2 calls that were used to build a plot.
+- **Reproducibility**: Facilitates the replication and modification of existing ggplot2 plots.
+
+## Installation
+
+```r
+# Installation instructions (to be added)
+```
+
+## Usage
+
+With `gghistory`, retrieving the construction history of a ggplot object is straightforward:
+
+```r
+library(gghistory)
+
+# Create a function which combines a few ggplot layers and returns a ggplot object
+func <- function(x, y) {
+  # layers have to be added with +
+  ggplot(mtcars, aes(x=!!as.name(x), y=!!as.name(y))) +
+    geom_point(alpha = 0.4) +
+    facet_grid(~gear) +
+    theme(axis.title.x = element_blank())
+}
+
+# Retrieve the plot construction code
+plot_code <- get_ggplot_code(func("wt", "mpg"))
+plot_code
+styler::style_text(deparse1(plot_code))
+
+ls(attr(plot_code, "plot_history_env"))
+# Reproduce the plot by evaluating the code
+eval_ggplot_code(plot_code)
+```
+
+## Note
+
+`gghistory` works by overriding certain functions in ggplot2.
+It is designed for debugging and educational purposes and may not be yet suitable for all production environments.
+
+## Contributions
+Contributions to `gghistory` are welcome. Please refer to the contribution guidelines for more information.
+ers.
