@@ -1,9 +1,0 @@
-# tests/testthat/test-eval-plot-code.R
-
-test_that("eval_plot_code reproduces the plot", {
-  p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
-  plot_code <- get_plot_code(p)
-  reconstructed_plot <- eval_plot_code(plot_code)
-  expect_true(inherits(reconstructed_plot, "ggplot"))
-  expect_length(attr(reconstructed_plot, "plot_history"), 2)
-})
