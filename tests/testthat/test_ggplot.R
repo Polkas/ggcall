@@ -42,6 +42,10 @@ test_that("eval_ggplot_code reproduces the plot", {
   expect_true(inherits(reconstructed_plot, "ggplot"))
   expect_length(attr(reconstructed_plot, "plot_history"), 2)
 
+  original_plot <- ggplot(mtcars, aes(x=wt, y=mpg)) +
+    geom_point(alpha = 0.4) +
+    facet_grid(~gear) +
+    theme(axis.title.x = element_blank())
   plot_code1 <- get_ggplot_code(func("wt", "mpg"))
   plot_code2 <- get_ggplot_code(funy())
 
@@ -52,4 +56,9 @@ test_that("eval_ggplot_code reproduces the plot", {
                              ls(attr(plot_code2, "plot_history_env")))
 
   testthat::expect_true(all.equal(plot_code1, plot_code2))
+
+  reconstructed_plot1 <- eval_ggplot_code(plot_code1)
+  reconstructed_plot2 <- eval_ggplot_code(plot_code2)
+  all.equal(reconstructed_plot1, reconstructed_plot2)
+  all.equal(reconstructed_plot1, original_plot)
 })
