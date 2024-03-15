@@ -50,4 +50,6 @@ test_that("eval_ggplot_code reproduces the plot", {
 
   testthat::expect_identical(ls(attr(plot_code1, "plot_history_env")),
                              ls(attr(plot_code2, "plot_history_env")))
+
+  testthat::expect_true(all.equal(plot_code1, plot_code2))
 })
