@@ -1,8 +1,8 @@
-#' Enhanced ggplot Function with History Tracking
+#' Enhanced `ggplot` Function with History Tracking
 #'
-#' Overrides the default ggplot function from the ggplot2 package, adding the
-#' capability to track the history of plot construction. This function initializes
-#' a history attribute in the ggplot object.
+#' Overrides the default `ggplot` function from the ggplot2 package, adding the
+#' capability to track the history of plot construction. 
+#' This function initializes a history attribute in the `ggplot` object.
 #'
 #' @param ... Arguments passed to the original ggplot function from ggplot2.
 #'
@@ -19,6 +19,7 @@
 #' @export
 #'
 ggplot <- function(...) {
+  validate_ggplot()
   plot <- ggplot2::ggplot(...)
 
   # Initialize the history with the first call
@@ -48,7 +49,7 @@ ggplot <- function(...) {
 #'
 `+.gg` <- function(e1, e2) {
   stopifnot(inherits(e1, "ggplot_history"))
-
+  validate_ggplot()
   plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
 
   # Append to the existing history
@@ -70,8 +71,10 @@ ggplot <- function(...) {
 #' with ggplot objects of class 'ggplot_history'.
 #'
 #' @param plot A ggplot object of class 'ggplot_history'.
-#' @param call Logical; if TRUE, returns a callable expression representing the
-#' plot construction. If FALSE, returns a list of the history elements.
+#' @param call `logical(1)` if `TRUE`, returns a callable expression
+#' representing the plot construction.
+#' If `FALSE`, returns a list of the history expressions.
+#' By default `TRUE`
 #'
 #' @return Depending on the value of 'call', either a callable expression or
 #' a list representing the history of the ggplot object.
@@ -87,7 +90,6 @@ ggplot <- function(...) {
 #'
 get_ggplot_code <- function(plot, call = TRUE) {
   stopifnot(inherits(plot, "ggplot_history"))
-
   history_attr <- attr(plot, "plot_history")
   if (call) {
     res <- Reduce(function(x, y) bquote(.(x) + .(y)), history_attr)
@@ -122,5 +124,13 @@ get_ggplot_code <- function(plot, call = TRUE) {
 #'
 eval_ggplot_code <- function(code) {
   stopifnot(inherits(code, "ggplot_history_code"))
+  validate_ggplot()
   eval(code, attr(code, "plot_history_env"))
+}
+
+#' @keywords internal
+validate_ggplot <- function() {
+  if (!requireNamespace("ggplot2")) {
+    stop("ggplot2 package has to be installed.")
+  }
 }
