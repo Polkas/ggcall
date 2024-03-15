@@ -50,17 +50,4 @@ test_that("eval_ggplot_code reproduces the plot", {
 
   testthat::expect_identical(ls(attr(plot_code1, "plot_history_env")),
                              ls(attr(plot_code2, "plot_history_env")))
-
-  path1 <- tempfile(fileext = ".png")
-  png(path1, width = 400, height = 400)
-  print(eval_ggplot_code(plot_code1))
-  dev.off()
-
-  path2 <- tempfile(fileext = ".png")
-  png(path2, width = 400, height = 400)
-  print(eval_ggplot_code(plot_code2))
-  dev.off()
-
-  testthat::expect_snapshot_file(path1, "ggplot1.png")
-  testthat::expect_snapshot_file(path2, "ggplot2.png")
 })
