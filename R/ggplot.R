@@ -61,6 +61,17 @@ ggplot <- function(...) {
   history <- c(history, list(substitute(e2)))
   attr(plot, "plot_history") <- history
 
+  merge_env <- function(to_env, from_env) {
+    for(name in ls(from_env)) {
+      assign(name, get(name, envir = from_env), envir = to_env)
+    }
+    to_env
+  }
+
+  if (!identical(attr(plot, "plot_history_env"), parent.frame())) {
+    attr(plot, "plot_history_env") <- merge_env(attr(plot, "plot_history_env"), parent.frame())
+  }
+
   plot
 }
 

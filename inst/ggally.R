@@ -30,20 +30,26 @@
 #' @method + gg
 #' @rdname gg-add
 #' @examples
-#' # small function to display plots only if it's interactive
-#' p_ <- GGally::print_if_interactive
-#' data(tips)
-#'
-#' pm <- ggpairs(tips[, 2:4], ggplot2::aes(color = sex))
-#' ## change to black and white theme
-#' pm + ggplot2::theme_bw()
-#' ## change to linedraw theme
-#' p_(pm + ggplot2::theme_linedraw())
-#' ## change to custom theme
-#' p_(pm + ggplot2::theme(panel.background = ggplot2::element_rect(fill = "lightblue")))
-#' ## add a list of information
-#' extra <- list(ggplot2::theme_bw(), ggplot2::labs(caption = "My caption!"))
-#' p_(pm + extra)
+#' library(GGally)
+#' data(mtcars)
+#' gg <- ggcorr(mtcars, method = "everything", label = TRUE)
+#' gg_code <- get_ggplot_code(gg)
+#' # styler::style_text(deparse1(gg_code))
+#' # ls(attr(gg_code, "plot_history_env"))
+#' eval_ggplot_code(gg_code)
+#' 
+#' data(iris)
+#' gg <- ggscatmat(iris, color = "Species")
+#' gg_code <- get_ggplot_code(gg)
+#' # styler::style_text(deparse1(gg_code))
+#' # ls(attr(gg_code, "plot_history_env"))
+#' eval_ggplot_code(gg_code)
+#' 
+#' data(tips, package = "reshape")
+#' # Not supported for ggmatrix like plots
+#' gg <- ggduo(tips, mapping = ggplot2::aes(colour = sex), columnsX = 3:4, columnsY = 1:2)
+#' # Will fail
+#' # gg_code <- get_ggplot_code(gg)
 "+.gg" <- function(e1, e2) {
   if (!is.ggmatrix(e1)) {
     stopifnot(inherits(e1, "ggplot_history"))
@@ -58,6 +64,17 @@
     }
     history <- c(history, list(substitute(e2)))
     attr(plot, "plot_history") <- history
+
+    merge_env <- function(to_env, from_env) {
+      for(name in ls(from_env)) {
+        assign(name, get(name, envir = from_env), envir = to_env)
+      }
+      to_env
+    }
+
+    if (!identical(parent.frame(), attr(plot, "plot_history_env"))) {
+      attr(plot, "plot_history_env") <- merge_env(attr(plot, "plot_history_env"), parent.frame())
+    }
 
     return(plot)
   }
