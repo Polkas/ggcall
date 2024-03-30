@@ -65,15 +65,9 @@
     history <- c(history, list(substitute(e2)))
     attr(plot, "plot_history") <- history
 
-    merge_env <- function(to_env, from_env) {
-      for(name in ls(from_env)) {
-        assign(name, get(name, envir = from_env), envir = to_env)
-      }
-      to_env
-    }
-
-    if (!identical(parent.frame(), attr(plot, "plot_history_env"))) {
-      attr(plot, "plot_history_env") <- merge_env(attr(plot, "plot_history_env"), parent.frame())
+    plot_env <- attr(plot, "plot_history_env")
+    if (!identical(parent.frame(), )) {
+      attr(plot, "plot_history_env") <- merge_env(plot_env, parent.frame())
     }
 
     return(plot)
@@ -202,4 +196,17 @@ validate_ggplot <- function() {
   if (!requireNamespace("ggplot2")) {
     stop("ggplot2 package has to be installed.")
   }
+}
+
+#' @keywords internal
+merge_env <- function(to_env, from_env) {
+  stopifnot(is.environment(to_env), is.environment(from_env))
+  for (name in ls(from_env)) {
+    if (name %in% ls(to_env)) {
+      warning(paste("Variable '", name, "' already exists in the target environment."))
+    } else {
+      assign(name, get(name, envir = from_env), envir = to_env)
+    }
+  }
+  to_env
 }

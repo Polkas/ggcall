@@ -24,6 +24,20 @@ funy <- function() {
   func(x, y)
 }
 
+func_internal <- function(x, y) {
+  gg <- ggplot(mtcars, aes(x=!!as.name(x), y=!!as.name(y)))
+  
+  fun <- function() {
+    a <- 0.4
+    gg +
+      geom_point(alpha = a) +
+      facet_grid(~gear) +
+      theme(axis.title.x = element_blank())
+  }
+  
+  fun()
+}
+
 test_that("get_ggplot_code returns correct history", {
   p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
   plot_code <- get_ggplot_code(p, call = FALSE)
@@ -48,17 +62,25 @@ test_that("eval_ggplot_code reproduces the plot", {
     theme(axis.title.x = element_blank())
   plot_code1 <- get_ggplot_code(func("wt", "mpg"))
   plot_code2 <- get_ggplot_code(funy())
+  plot_code3 <- get_ggplot_code(func_internal("wt", "mpg"))
 
-  testthat::expect_identical(c("x", "y"),
-                             ls(attr(plot_code2, "plot_history_env")))
+  testthat::expect_setequal(c("x", "y"),
+                            ls(attr(plot_code2, "plot_history_env")))
 
   testthat::expect_identical(ls(attr(plot_code1, "plot_history_env")),
                              ls(attr(plot_code2, "plot_history_env")))
 
+  testthat::expect_setequal(c("x", "y", "a"),
+                            ls(attr(plot_code3, "plot_history_env")))
+
   testthat::expect_true(all.equal(plot_code1, plot_code2))
+  testthat::expect_true(all.equal(plot_code1, plot_code3))
 
   reconstructed_plot1 <- eval_ggplot_code(plot_code1)
   reconstructed_plot2 <- eval_ggplot_code(plot_code2)
+  reconstructed_plot3 <- eval_ggplot_code(plot_code3)
+
   all.equal(reconstructed_plot1, reconstructed_plot2)
   all.equal(reconstructed_plot1, original_plot)
+  all.equal(reconstructed_plot3, original_plot)
 })
