@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggplot.R
 \name{ggplot}
 \alias{ggplot}
-\title{Enhanced ggplot Function with History Tracking}
+\title{Enhanced `ggplot` Function with History Tracking}
 \usage{
 ggplot(...)
 }
@@ -14,9 +14,9 @@ A ggplot object of class 'ggplot_history', with an additional
 attribute 'plot_history' that stores the history of plot construction.
 }
 \description{
-Overrides the default ggplot function from the ggplot2 package, adding the
-capability to track the history of plot construction. This function initializes
-a history attribute in the ggplot object.
+Overrides the default `ggplot` function from the ggplot2 package, adding the
+capability to track the history of plot construction. 
+This function initializes a history attribute in the `ggplot` object.
 }
 \examples{
 p <- ggplot(mtcars, aes(x=wt, y=mpg))

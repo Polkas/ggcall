@@ -1,3 +1,11 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^\.Rhistory$
+^\.RData$
+^\.Rapp\.history$
+^\.github$
+^\.gitignore$
+^\.git$
+^\.DS_Store$
+^\.devcontainer$

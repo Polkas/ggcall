@@ -9,8 +9,10 @@ get_ggplot_code(plot, call = TRUE)
 \arguments{
 \item{plot}{A ggplot object of class 'ggplot_history'.}
 
-\item{call}{Logical; if TRUE, returns a callable expression representing the
-plot construction. If FALSE, returns a list of the history elements.}
+\item{call}{`logical(1)` if `TRUE`, returns a callable expression
+representing the plot construction.
+If `FALSE`, returns a list of the history expressions.
+By default `TRUE`}
 }
 \value{
 Depending on the value of 'call', either a callable expression or
