@@ -81,7 +81,7 @@ test_that("get_ggplot_code returns correct history", {
 
   plot_code1 <- get_ggplot_code(func("wt", "mpg"))
   plot_code2 <- get_ggplot_code(funy())
-  testthat::expect_identical(deparse1(plot_code1), deparse1(plot_code2))
+  testthat::expect_identical(backports::deparse1(plot_code1), backports::deparse1(plot_code2))
 })
 
 test_that("eval_ggplot_code reproduces the plot", {
