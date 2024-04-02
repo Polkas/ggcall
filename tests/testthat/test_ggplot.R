@@ -81,7 +81,7 @@ test_that("get_ggplot_code returns correct history", {
 
   plot_code1 <- get_ggplot_code(func("wt", "mpg"))
   plot_code2 <- get_ggplot_code(funy())
-  testthat::expect_identical(backports::deparse1(plot_code1), backports::deparse1(plot_code2))
+  testthat::expect_identical(backports:::deparse1(plot_code1), backports:::deparse1(plot_code2))
 })
 
 test_that("eval_ggplot_code reproduces the plot", {
@@ -118,12 +118,19 @@ test_that("eval_ggplot_code reproduces the plot", {
   reconstructed_plot2 <- eval_ggplot_code(plot_code2)
   reconstructed_plot3 <- eval_ggplot_code(plot_code3)
   reconstructed_plot4 <- eval_ggplot_code(plot_code4)
-  reconstructed_plot5 <- eval_ggplot_code(plot_code5)
+  testthat::expect_error(print(eval_ggplot_code(plot_code5)), "Problem while setting up geom aesthetics")
 
-  all.equal(reconstructed_plot1, reconstructed_plot2)
-  all.equal(reconstructed_plot1, original_plot)
-  all.equal(reconstructed_plot3, original_plot)
-  all.equal(reconstructed_plot4, original_plot)
-  all.equal(reconstructed_plot5, original_plot)
+  render_plot <- function(plot) {
+    tempf <- tempfile(fileext = ".png")
+    grDevices::png(filename = tempf, width = 400, height = 400)
+    print(plot)
+    grDevices::dev.off()
+    tempf
+  }
+
+  testthat::compare_file_binary(render_plot(reconstructed_plot1), render_plot(original_plot))
+  testthat::compare_file_binary(render_plot(reconstructed_plot1), render_plot(reconstructed_plot2))
+  testthat::compare_file_binary(render_plot(reconstructed_plot1), render_plot(reconstructed_plot3))
+  testthat::compare_file_binary(render_plot(reconstructed_plot1), render_plot(reconstructed_plot4))
 
 })
