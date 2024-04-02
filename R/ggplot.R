@@ -26,6 +26,7 @@ ggplot <- function(...) {
   history <- list(match.call())
   attr(plot, "plot_history") <- history
   attr(plot, "plot_history_env") <- parent.frame()
+  attr(plot, "plot_history_env_last") <- attr(plot, "plot_history_env")
   class(plot) <- c("ggplot_history", class(plot))
 
   plot
@@ -61,8 +62,11 @@ ggplot <- function(...) {
   history <- c(history, list(substitute(e2)))
   attr(plot, "plot_history") <- history
 
-  attr(plot, "plot_history_env") <- merge_env(attr(plot, "plot_history_env"), parent.env())
+  if (!identical(attr(e1, "plot_history_env_last"), parent.frame())) {
+    attr(plot, "plot_history_env") <- merge_env(attr(plot, "plot_history_env"), parent.frame())
+  }
 
+  attr(plot, "plot_history_env_last") <- parent.frame()
   plot
 }
 
@@ -140,12 +144,17 @@ validate_ggplot <- function() {
 #' @keywords internal
 merge_env <- function(to_env, from_env) {
   stopifnot(is.environment(to_env), is.environment(from_env))
-  if (identical(to_env, from_env)) return(to_env)
-  for (name in ls(from_env)) {
-    to_env_names <- ls(to_env)
-    if (name %in% to_env_names) {
-      warning(paste("gghistory: Variable '", name, "' already exists in the target environment."))
-    } else {
+  inter_env <- intersect(ls(to_env), ls(from_env))
+  if (length(inter_env) > 0) {
+    warning(
+      sprintf(
+        "gghistory: Variable %s already exists in the target environment.",
+        paste(inter_env, collapse = ", ")
+      )
+    )
+  } 
+  if (!setequal(ls(to_env), ls(from_env))) {
+    for (name in ls(from_env)) {
       to_env[[name]] <- from_env[[name]]
     }
   }

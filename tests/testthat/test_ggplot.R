@@ -38,6 +38,41 @@ func_internal <- function(x, y) {
   fun()
 }
 
+func_internal2 <- function(x, y) {
+  gg <- ggplot(mtcars, aes(x=!!as.name(x), y=!!as.name(y)))
+  
+  fun <- function() {
+    a <- 0.4
+    ggg <- gg +
+      geom_point(alpha = a) +
+      facet_grid(~gear)
+      funn <- function() {
+        aa <- element_blank()
+        ggg +
+          theme(axis.title.x = aa)
+      } 
+      funn()
+  }
+  fun()
+}
+
+func_internal3 <- function(x, y) {
+  gg <- ggplot(mtcars, aes(x=!!as.name(x), y=!!as.name(y)))
+  fun <- function() {
+    aa <- 0.4
+    gg <- gg +
+      geom_point(alpha = aa) +
+      facet_grid(~gear)
+      funn <- function() {
+        aa <- element_blank()
+        gg +
+          theme(axis.title.x = aa)
+      } 
+      funn()
+  }
+  fun()
+}
+
 test_that("get_ggplot_code returns correct history", {
   p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
   plot_code <- get_ggplot_code(p, call = FALSE)
@@ -63,6 +98,9 @@ test_that("eval_ggplot_code reproduces the plot", {
   plot_code1 <- get_ggplot_code(func("wt", "mpg"))
   plot_code2 <- get_ggplot_code(funy())
   plot_code3 <- get_ggplot_code(func_internal("wt", "mpg"))
+  plot_code4 <- get_ggplot_code(func_internal2("wt", "mpg"))
+  expect_warning(get_ggplot_code(func_internal3("wt", "mpg")), "Variable aa already exists")
+  plot_code5 <- suppressWarnings(get_ggplot_code(func_internal3("wt", "mpg")))
 
   testthat::expect_setequal(c("x", "y"),
                             ls(attr(plot_code2, "plot_history_env")))
@@ -70,17 +108,22 @@ test_that("eval_ggplot_code reproduces the plot", {
   testthat::expect_identical(ls(attr(plot_code1, "plot_history_env")),
                              ls(attr(plot_code2, "plot_history_env")))
 
-  testthat::expect_setequal(c("x", "y", "a"),
+  testthat::expect_setequal(c("x", "y", "a", "fun", "gg"),
                             ls(attr(plot_code3, "plot_history_env")))
 
   testthat::expect_true(all.equal(plot_code1, plot_code2))
-  testthat::expect_true(all.equal(plot_code1, plot_code3))
+  testthat::expect_false(isTRUE(all.equal(plot_code1, plot_code3)))
 
   reconstructed_plot1 <- eval_ggplot_code(plot_code1)
   reconstructed_plot2 <- eval_ggplot_code(plot_code2)
   reconstructed_plot3 <- eval_ggplot_code(plot_code3)
+  reconstructed_plot4 <- eval_ggplot_code(plot_code4)
+  reconstructed_plot5 <- eval_ggplot_code(plot_code5)
 
   all.equal(reconstructed_plot1, reconstructed_plot2)
   all.equal(reconstructed_plot1, original_plot)
   all.equal(reconstructed_plot3, original_plot)
+  all.equal(reconstructed_plot4, original_plot)
+  all.equal(reconstructed_plot5, original_plot)
+
 })
