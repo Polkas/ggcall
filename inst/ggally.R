@@ -65,10 +65,7 @@
     history <- c(history, list(substitute(e2)))
     attr(plot, "plot_history") <- history
 
-    plot_env <- attr(plot, "plot_history_env")
-    if (!identical(parent.frame(), )) {
-      attr(plot, "plot_history_env") <- merge_env(plot_env, parent.frame())
-    }
+    attr(plot, "plot_history_env") <- merge_env(attr(plot, "plot_history_env"), parent.frame())
 
     return(plot)
   }
@@ -201,12 +198,15 @@ validate_ggplot <- function() {
 #' @keywords internal
 merge_env <- function(to_env, from_env) {
   stopifnot(is.environment(to_env), is.environment(from_env))
+  if (identical(to_env, from_env)) return(to_env)
   for (name in ls(from_env)) {
-    if (name %in% ls(to_env)) {
-      warning(paste("Variable '", name, "' already exists in the target environment."))
+    to_env_names <- ls(to_env)
+    if (name %in% to_env_names) {
+      warning(paste("gghistory: Variable '", name, "' already exists in the target environment."))
     } else {
-      assign(name, get(name, envir = from_env), envir = to_env)
+      to_env[[name]] <- from_env[[name]]
     }
   }
   to_env
 }
+
