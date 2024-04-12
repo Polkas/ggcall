@@ -92,7 +92,36 @@ eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "gear")
 # #' @importFrom ggcall ggplot
 ```
 
-Please access the vignette for more information
+### Example implementation in GGally package
+
+check out the inst/ggally.R for more details
+
+```
+remotes::install_github("https://github.com/Polkas/ggally")
+library(GGally)
+data(mtcars)
+gg <- ggcorr(mtcars, method = "everything", label = TRUE)
+gg_code <- ggcall(gg)
+styler::style_text(backports:::deparse1(gg_code))
+eval_ggcall(gg_code)
+```
+
+### Example implementation in tern package
+
+check out the inst/tern.R for more details
+
+```
+remotes::install_github("https://github.com/Polkas/tern")
+library(tern)
+gg <- g_waterfall(
+  height = c(3, 5, -1),
+  id = letters[1:3],
+  col_var = letters[1:3]
+)
+gg_code <- ggcall(gg)
+styler::style_text(backports:::deparse1(gg_code))
+eval_ggcall(gg_code)
+```
 
 ## Contributions
 

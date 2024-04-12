@@ -96,4 +96,4 @@
 }
 
 # CREATE A NEW file ggcall.R
-# COPY PASTE THE WHOLE CODE FROM R/ggcall.R
+# COPY PASTE THE WHOLE CODE FROM R/ggcall.R instead of +.gg function
