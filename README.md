@@ -4,7 +4,7 @@
 
 ## Overview
 
-The `ggcall` package enhances the functionality of `ggplot2` by enabling users to retrieve the complete code used to generate a `ggplot` object. This package is particularly useful for understanding and replicating complex `ggplot2` plots, especially when the original code is not accessible, e.g. is hidden in the internals of a package.
+The `ggcall` package enhances the functionality of `ggplot2` by enabling users to retrieve the complete code used to generate a `ggplot` object. This package is beneficial for understanding and replicating complex `ggplot2` plots, especially when the original code is not accessible, e.g. is hidden in the internals of a package.
 
 `ggcall` is especially useful for R developers who build their own packages comprising functions that generate `ggplot2` plots. These functions often involve multiple layers and complex plotting logic. By using `ggcall`, developers can make their plotting solutions more transparent and reproducible, thereby enhancing the utility and reliability of their packages. Please note, `ggcall` is not intended for packages that create custom geom/stat functions.
 
@@ -101,23 +101,6 @@ remotes::install_github("https://github.com/Polkas/ggally")
 library(GGally)
 data(mtcars)
 gg <- ggcorr(mtcars, method = "everything", label = TRUE)
-gg_code <- ggcall(gg)
-styler::style_text(backports:::deparse1(gg_code))
-eval_ggcall(gg_code)
-```
-
-### Example implementation in tern package
-
-check out the inst/tern.R for more details
-
-```
-remotes::install_github("https://github.com/Polkas/tern")
-library(tern)
-gg <- g_waterfall(
-  height = c(3, 5, -1),
-  id = letters[1:3],
-  col_var = letters[1:3]
-)
 gg_code <- ggcall(gg)
 styler::style_text(backports:::deparse1(gg_code))
 eval_ggcall(gg_code)
