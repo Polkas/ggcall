@@ -41,7 +41,8 @@ plot_call
 # Optionally: Style the code with styler
 styler::style_text(backports:::deparse1(plot_call))
 
-# Linked to code environment
+# Optional
+# Access call environment and/or use it to evaluate the call
 plot_call_env <- ggcall_env(plot_call)
 as.list(plot_call_env)
 # Reproduce the plot by evaluating the code
@@ -103,6 +104,8 @@ data(mtcars)
 gg <- ggcorr(mtcars, method = "everything", label = TRUE)
 gg_code <- ggcall(gg)
 styler::style_text(backports:::deparse1(gg_code))
+# Optional
+# Reproduce the plot by evaluating the code
 eval_ggcall(gg_code)
 ```
 
