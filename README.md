@@ -101,12 +101,19 @@ eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "gear")
 
 ### Example implementation in GGally package
 
+ggcall was successfully integrated into popular R packages like GGally.
+Please take into account that GGally had already overwritten the + ggplot2 function. 
+Thus, overwriting practice seems popular practice.
+
+These implementations demonstrate ggcall’s versatility and its capability to enhance the functionality of existing packages.
+
 check out the inst/ggally.R for more details
 
 ```
 remotes::install_github("https://github.com/Polkas/ggally")
 library(GGally)
 data(mtcars)
+# only ggmatrix related functions are not supported
 gg <- ggcorr(mtcars, method = "everything", label = TRUE)
 gg_code <- ggcall(gg)
 styler::style_text(backports:::deparse1(gg_code))
