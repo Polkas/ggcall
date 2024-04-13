@@ -19,6 +19,7 @@ The solution is in the early development and is expected not to work in specific
 With `ggcall`, retrieving the construction calls of a `ggplot` object is straightforward:
 
 ```r
+remotes::install_github("https://github.com/Polkas/ggcall")
 library(ggcall)
 
 # Example: Create a function which combines a few ggplot layers
