@@ -10,6 +10,10 @@ The `ggcall` package enhances the functionality of `ggplot2` by enabling users t
 An excellent implementation example is to create a bunch of ggplot templates, and we want them to be functions.
 Then, each template will generate the expected plot, and the ggplot2 code behind is easy to get.
 
+## Note
+
+The solution is in the early development and is expected not to work in specific situations like with cowplot or when transition to grobs occurs.
+
 ## Usage
 
 With `ggcall`, retrieving the construction calls of a `ggplot` object is straightforward:
