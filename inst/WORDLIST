@@ -77,6 +77,7 @@ runArgs
 sdras
 seccomp
 setuptools
+speling
 strace
 streetsidesoftware
 Styleguide
@@ -93,6 +94,7 @@ ust
 ver
 vscode
 wget
+wong
 zlib
 zsh
 ZSH
