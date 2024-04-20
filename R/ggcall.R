@@ -49,10 +49,10 @@ ggplot <- function(...) {
 #'
 #' @export
 #'
-`+.gg` <- function(e1, e2) {
+`+.gg` <- function(e1, e2){
   stopifnot(inherits(e1, "ggcall"))
   validate_ggplot()
-  plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
+  plot <-utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
 
   # Append to the existing history
   if (!is.null(attr(e1, "ggcall"))) {
