@@ -2,6 +2,7 @@ ARG
 aut
 backports
 bracketedPaste
+codecov
 coenraads
 colorizer
 colorTheme
