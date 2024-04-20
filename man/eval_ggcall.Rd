@@ -23,7 +23,8 @@ It specifically uses the environment stored in the 'ggcall_env' attribute
 of the expression, ensuring that the plot is reconstructed in the correct context.
 }
 \examples{
-p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
 plot_call <- ggcall(p)
 reconstructed_plot <- eval_ggcall(plot_call)
 print(reconstructed_plot)

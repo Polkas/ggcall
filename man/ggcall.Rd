@@ -19,7 +19,8 @@ providing a way to reproduce or inspect the plot. Designed to work
 with ggplot objects of class 'ggcall'.
 }
 \examples{
-p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
 plot_call <- ggcall(p)
 # Optionally: Style the code with styler
 styler::style_text(backports:::deparse1(plot_call))

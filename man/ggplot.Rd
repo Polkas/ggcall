@@ -19,7 +19,7 @@ capability to track the history of plot construction.
 This function initializes a history attribute in the `ggplot` object.
 }
 \examples{
-p <- ggplot(mtcars, aes(x=wt, y=mpg))
+p <- ggplot(mtcars, aes(x = wt, y = mpg))
 # the + function has to come from ggcall package
 attr(p + geom_point(), "ggcall")
 

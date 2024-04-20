@@ -20,7 +20,8 @@ plot layers and modifications. This function is meant to be used in
 conjunction with the enhanced ggplot function provided by this package.
 }
 \examples{
-p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
 attr(p, "ggcall") # View the plot call
 
 }

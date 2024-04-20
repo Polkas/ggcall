@@ -12,7 +12,7 @@
 #' @seealso \code{\link[ggplot2]{ggplot}}
 #' @importFrom ggplot2 ggplot
 #' @examples
-#' p <- ggplot(mtcars, aes(x=wt, y=mpg))
+#' p <- ggplot(mtcars, aes(x = wt, y = mpg))
 #' # the + function has to come from ggcall package
 #' attr(p + geom_point(), "ggcall")
 #'
@@ -43,7 +43,8 @@ ggplot <- function(...) {
 #'
 #' @return A modified ggplot object with updated plot history.
 #' @examples
-#' p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
+#' p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
+#'   geom_point()
 #' attr(p, "ggcall") # View the plot call
 #'
 #' @export
@@ -82,7 +83,8 @@ ggplot <- function(...) {
 #' a list representing the history of the ggplot object.
 #'
 #' @examples
-#' p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
+#' p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
+#'   geom_point()
 #' plot_call <- ggcall(p)
 #' # Optionally: Style the code with styler
 #' styler::style_text(backports:::deparse1(plot_call))
@@ -113,7 +115,8 @@ ggcall <- function(plot) {
 #' @return The resulting ggplot object produced by evaluating the expression `x`.
 #'
 #' @examples
-#' p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
+#' p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
+#'   geom_point()
 #' plot_call <- ggcall(p)
 #' reconstructed_plot <- eval_ggcall(plot_call)
 #' print(reconstructed_plot)
@@ -138,7 +141,10 @@ eval_ggcall <- function(call, ...) {
 #' @param code An expression representing the ggplot construction code.
 #' @return The environment in which the ggplot construction code was created.
 #' @examples
-#' fun <- function(data, x, y) ggplot(data, aes(x=!!as.name(x), y=!!as.name(y))) + geom_point()
+#' fun <- function(data, x, y) {
+#'   ggplot(data, aes(x = !!as.name(x), y = !!as.name(y))) +
+#'     geom_point()
+#' }
 #' plot_call <- ggcall(fun(mtcars, "wt", "mpg"))
 #' env <- ggcall_env(plot_call)
 #' ls(env)
@@ -169,4 +175,3 @@ merge_env <- function(to_env, from_env) {
 
   to_env
 }
-

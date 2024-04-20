@@ -1,7 +1,7 @@
 Package: ggcall
 Type: Package
 Title: Retrieve ggplot2 Call
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: 
     person(given = "Maciej",
            family = "Nasinski",
