@@ -36,23 +36,15 @@
 #' library(GGally)
 #' data(mtcars)
 #' gg <- ggcorr(mtcars, method = "everything", label = TRUE)
-#' gg_code <- ggcall(gg)
-#' # styler::style_text(deparse1(gg_code))
-#' # ls(attr(gg_code, "plot_history_env"))
-#' eval_ggcall(gg_code)
+#' gg_call <- ggcall(gg)
+#' gg_call
+#' # Optionally: Style the code with styler
+#' # styler::style_text(deparse1(gg_call))
+#' # Optional
+#' # Access call environment and/or use it to evaluate the call
+#' # as.list(ggcall_env(gg_call))
+#' eval_ggcall(gg_call)
 #'
-#' data(iris)
-#' gg <- ggscatmat(iris, color = "Species")
-#' gg_code <- ggcall(gg)
-#' # styler::style_text(deparse1(gg_code))
-#' # ls(attr(gg_code, "plot_history_env"))
-#' eval_ggcall(gg_code)
-#'
-#' data(tips, package = "reshape")
-#' # Not supported for ggmatrix like plots
-#' gg <- ggduo(tips, mapping = ggplot2::aes(colour = sex), columnsX = 3:4, columnsY = 1:2)
-#' # Will fail
-#' # gg_code <- ggcall(gg)
 "+.gg" <- function(e1, e2) {
   if (!is.ggmatrix(e1)) {
     stopifnot(inherits(e1, "ggcall"))
