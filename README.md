@@ -125,8 +125,8 @@ eval_ggcall(gg_call)
 #'
 data(iris)
 gg <- ggscatmat(iris, color = "Species")
-gg_code <- ggcall(gg)
-gg_code
+gg_call <- ggcall(gg)
+gg_call
 # Optionally: Style the code with styler
 # styler::style_text(deparse1(gg_call))
 # Optional
@@ -138,7 +138,7 @@ data(tips, package = "reshape")
 # Not supported for ggmatrix like plots
 gg <- ggduo(tips, mapping = ggplot2::aes(colour = sex), columnsX = 3:4, columnsY = 1:2)
 # Will fail
-# gg_code <- ggcall(gg)
+# gg_call <- ggcall(gg)
 ```
 
 ## Contributions
