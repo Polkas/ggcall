@@ -113,13 +113,32 @@ check out the inst/ggally.R for more details
 remotes::install_github("https://github.com/Polkas/ggally")
 library(GGally)
 data(mtcars)
-# only ggmatrix related functions are not supported
 gg <- ggcorr(mtcars, method = "everything", label = TRUE)
-gg_code <- ggcall(gg)
-styler::style_text(backports:::deparse1(gg_code))
+gg_call <- ggcall(gg)
+gg_call
+# Optionally: Style the code with styler
+# styler::style_text(deparse1(gg_call))
 # Optional
-# Reproduce the plot by evaluating the code
-eval_ggcall(gg_code)
+# Access call environment and/or use it to evaluate the call
+# as.list(ggcall_env(gg_call))
+eval_ggcall(gg_call)
+#'
+data(iris)
+gg <- ggscatmat(iris, color = "Species")
+gg_code <- ggcall(gg)
+gg_code
+# Optionally: Style the code with styler
+# styler::style_text(deparse1(gg_call))
+# Optional
+# Access call environment and/or use it to evaluate the call
+# as.list(ggcall_env(gg_call))
+eval_ggcall(gg_call)
+#'
+data(tips, package = "reshape")
+# Not supported for ggmatrix like plots
+gg <- ggduo(tips, mapping = ggplot2::aes(colour = sex), columnsX = 3:4, columnsY = 1:2)
+# Will fail
+# gg_code <- ggcall(gg)
 ```
 
 ## Contributions
