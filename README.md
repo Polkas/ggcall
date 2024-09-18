@@ -42,10 +42,13 @@ func <- function(data, x, y, bool = TRUE) {
   func_internal(gg)
 }
 
-# Retrieve the plot construction code
+# gg_plot is a ggplot object
 gg_plot <- func(mtcars, "wt", "mpg")
+print(gg_plot)
+# Retrieve the plot construction code
 plot_call <- ggcall(gg_plot)
 plot_call
+
 # Optionally: Style the code with styler
 styler::style_text(backports:::deparse1(plot_call))
 
