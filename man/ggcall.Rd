@@ -19,9 +19,25 @@ providing a way to reproduce or inspect the plot. Designed to work
 with ggplot objects of class 'ggcall'.
 }
 \examples{
-p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
-  geom_point()
-plot_call <- ggcall(p)
+# Example: Create a function which combines a few ggplot layers
+# Typically, it will be a function from your R package where you implemented ggcall
+func <- function(data, x, y, bool = TRUE) {
+  # layers have to be added with +
+  gg <- ggplot(data, aes(x=!!as.name(x), y=!!as.name(y))) +
+    geom_point(alpha = 0.4) +
+    facet_grid(~gear)
+
+  if (bool) {
+    gg <- gg + theme(axis.title.x = element_blank())
+  }
+
+  func_internal <- function(gg) {
+    gg + labs(x = "custom xlab")
+ }
+
+  func_internal(gg)
+}
+plot_call <- ggcall(func(mtcars, "wt", "mpg"))
 # Optionally: Style the code with styler
 styler::style_text(backports:::deparse1(plot_call))
 

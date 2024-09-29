@@ -27,7 +27,7 @@ library(ggcall)
 # Typically, it will be a function from your R package where you implemented ggcall
 func <- function(data, x, y, bool = TRUE) {
   # layers have to be added with +
-  gg <- ggplot(data, aes(x=!!as.name(x), y=!!as.name(y))) +
+  gg <- ggplot(data, aes(x = .data[[x]], y = .data[[y]])) +
     geom_point(alpha = 0.4) +
     facet_grid(~gear)
     
@@ -50,14 +50,25 @@ plot_call <- ggcall(gg_plot)
 plot_call
 
 # Optionally: Style the code with styler
+# install.packages("styler")
 styler::style_text(backports:::deparse1(plot_call))
 
-# Optional
+# Optionally: add assignments to call
+plot_call_with_assignments <- ggcall_add_assignments(plot_call)
+styler::style_text(
+  paste(deparse(plot_call_with_assignments), collapse = "\n")
+)
+
+# Optionally: access call environment
 # Access call environment and/or use it to evaluate the call
 plot_call_env <- ggcall_env(plot_call)
 as.list(plot_call_env)
+
+# Optionally: reevaulate the call
 # Reproduce the plot by evaluating the code
 eval_ggcall(plot_call)
+eval_ggcall(plot_call_with_assignments)
+
 # Optionally overwrite variables
 eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "gear")
 ```
@@ -115,33 +126,86 @@ check out the inst/ggally.R for more details
 ```
 remotes::install_github("https://github.com/Polkas/ggally")
 library(GGally)
+
+###########################
+# Example for GGally ggcorr
+###########################
+
 data(mtcars)
-gg <- ggcorr(mtcars, method = "everything", label = TRUE)
+gg <- GGally::ggcorr(
+    mtcars,
+    name = expression(rho),
+    geom = "circle",
+    max_size = 10,
+    min_size = 2,
+    size = 3,
+    hjust = 0.75,
+    nbreaks = 6,
+    angle = -45,
+    palette = "PuOr",
+    legend.position = "top"
+) + 
+ggtitle("Correlation Matrix for mtcars Dataset")
+# gg is a ggplot object
+gg
+
+# Retrieve the plot construction code
 gg_call <- ggcall(gg)
 gg_call
+
 # Optionally: Style the code with styler
-# styler::style_text(deparse1(gg_call))
-# Optional
-# Access call environment and/or use it to evaluate the call
-# as.list(ggcall_env(gg_call))
-eval_ggcall(gg_call)
-#'
+styler::style_text(deparse1(gg_call))
+
+# Optionally: add assignments to call
+gg_call_with_assignments <- ggcall_add_assignments(gg_call)
+gg_call_with_assignments
+styler::style_text(
+  paste(deparse(gg_call_with_assignments), collapse = "\n")
+)
+
+# Optionally: reevaulate the call
+# Reproduce the plot by evaluating the code
+eval_ggcall(gg_call_with_assignments)
+eval_ggcall(ggcall_add_assignments(gg_call))
+
+##############################
+# Example for GGally ggscatmat
+##############################
+
 data(iris)
-gg <- ggscatmat(iris, color = "Species")
+gg <- GGally::ggscatmat(iris, color = "Species", columns = 1:4)
+# gg is a ggplot object
+gg
+
+# Retrieve the plot construction code
 gg_call <- ggcall(gg)
 gg_call
+
 # Optionally: Style the code with styler
-# styler::style_text(deparse1(gg_call))
-# Optional
-# Access call environment and/or use it to evaluate the call
-# as.list(ggcall_env(gg_call))
+styler::style_text(deparse1(gg_call))
+
+# Optionally: add assignments to call
+gg_call_with_assignments <- ggcall_add_assignments(gg_call)
+gg_call_with_assignments
+styler::style_text(
+  paste(deparse(gg_call_with_assignments), collapse = "\n")
+)
+
+# Optionally: reevaulate the call
+# Reproduce the plot by evaluating the code
 eval_ggcall(gg_call)
-#'
-data(tips, package = "reshape")
+eval_ggcall(gg_call_with_assignments)
+
+##########################
+# Example for GGally ggduo
+##########################
+
 # Not supported for ggmatrix like plots
-gg <- ggduo(tips, mapping = ggplot2::aes(colour = sex), columnsX = 3:4, columnsY = 1:2)
-# Will fail
-# gg_call <- ggcall(gg)
+# ggcall will fail as ggmatrix plots are not build with pure ggplot2
+
+gg <- GGally::ggduo(tips, mapping = ggplot2::aes(colour = sex), columnsX = 3:4, columnsY = 1:2)
+ggplot2::is.ggplot(gg)
+# Fail gg_call <- ggcall(gg)
 ```
 
 ## Contributions

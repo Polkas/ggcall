@@ -3,6 +3,7 @@
 S3method("+",gg)
 export(eval_ggcall)
 export(ggcall)
+export(ggcall_add_assignments)
 export(ggcall_env)
 export(ggplot)
 importFrom(ggplot2,ggplot)

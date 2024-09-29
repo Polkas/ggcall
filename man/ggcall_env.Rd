@@ -4,7 +4,7 @@
 \alias{ggcall_env}
 \title{Retrieve Environment from ggcall}
 \usage{
-ggcall_env(code)
+ggcall_env(call)
 }
 \arguments{
 \item{code}{An expression representing the ggplot construction code.}
