@@ -42,4 +42,3 @@ test_that("ggcall returns correct call", {
   plot_call2 <- ggcall(funy())
   testthat::expect_identical(backports:::deparse1(plot_call1), backports:::deparse1(plot_call2))
 })
-

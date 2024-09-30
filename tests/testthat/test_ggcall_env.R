@@ -12,4 +12,3 @@ test_that("ggcall_env returns an environment", {
   expect_identical(ggcall_env(plot_call)[["x"]], "wt")
   expect_identical(ggcall_env(plot_call)[["y"]], "mpg")
 })
-

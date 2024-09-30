@@ -33,7 +33,7 @@ More complex variables are referenced to ggcall environment.
 # Typically, it will be a function from your R package where you implemented ggcall
 func <- function(data, x, y, bool = TRUE) {
   # layers have to be added with +
-  gg <- ggplot(data, aes(x=!!as.name(x), y=!!as.name(y))) +
+  gg <- ggplot(data, aes(x = !!as.name(x), y = !!as.name(y))) +
     geom_point(alpha = 0.4) +
     facet_grid(~gear)
 
@@ -43,7 +43,7 @@ func <- function(data, x, y, bool = TRUE) {
 
   func_internal <- function(gg) {
     gg + labs(x = "custom xlab")
- }
+  }
 
   func_internal(gg)
 }

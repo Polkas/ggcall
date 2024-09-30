@@ -16,7 +16,7 @@ Encoding: UTF-8
 LazyData: true
 Depends: 
     ggplot2
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Suggests: 
     backports,
     styler,

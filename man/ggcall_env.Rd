@@ -7,7 +7,7 @@
 ggcall_env(call)
 }
 \arguments{
-\item{code}{An expression representing the ggplot construction code.}
+\item{call}{An expression representing the ggplot construction code.}
 }
 \value{
 The environment in which the ggplot construction code was created.
