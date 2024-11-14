@@ -61,7 +61,7 @@ ggplot <- function(...) {
       attr(plot, "ggcall") <- bquote(.(ggcall(e1)) + .(history))
     }
     if (!identical(attr(e1, "ggcall_env_last"), parent.frame())) {
-      attr(plot, "ggcall_env") <- merge_env(attr(plot, "ggcall_env"), parent.frame())
+      attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), parent.frame())
     }
     attr(plot, "ggcall_env_last") <- parent.frame()
   }
