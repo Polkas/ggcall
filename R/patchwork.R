@@ -1,3 +1,11 @@
+#' @keywords internal
+validate_patchwork <- function() {
+  if (!requireNamespace("patchwork")) {
+    stop("patchwork package has to be installed.")
+  }
+}
+
+#' @keywords internal
 patch_operator_base <- function(e1, e2, operator) {
   validate_patchwork()
   plot <- utils::getFromNamespace("-.ggplot", "patchwork")(e1, e2)
@@ -32,11 +40,4 @@ patch_operator_base <- function(e1, e2, operator) {
 #' @export
 "&.ggcall" <- function(e1, e2) {
   patch_operator_base(e1, e2, "&")
-}
-
-#' @keywords internal
-validate_patchwork <- function() {
-  if (!requireNamespace("patchwork")) {
-    stop("patchwork package has to be installed.")
-  }
 }
