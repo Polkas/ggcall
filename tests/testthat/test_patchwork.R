@@ -1,3 +1,5 @@
+library(patchwork)
+
 test_that("patchwork + operator", {
   p1 <- ggplot(mtcars) +
     geom_point(aes(mpg, disp))
