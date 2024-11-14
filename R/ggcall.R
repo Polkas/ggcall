@@ -53,7 +53,6 @@ ggplot <- function(...) {
   plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
 
   if (inherits(e1, "ggcall")) {
-
     if (inherits(e2, "ggcall")) {
       history <- call("(", ggcall(e2))
     } else {
