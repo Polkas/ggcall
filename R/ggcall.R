@@ -23,8 +23,7 @@ ggplot <- function(...) {
   plot <- ggplot2::ggplot(...)
 
   # Initialize the history with the first call
-  history <- list(match.call())
-  attr(plot, "ggcall") <- history
+  attr(plot, "ggcall") <- match.call()
   attr(plot, "ggcall_env") <- parent.frame()
   attr(plot, "ggcall_env_last") <- attr(plot, "ggcall_env")
   class(plot) <- c("ggcall", class(plot))
@@ -54,20 +53,14 @@ ggplot <- function(...) {
   plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
 
   if (inherits(e1, "ggcall")) {
-    # Append to the existing history
-    if (!is.null(attr(e1, "ggcall"))) {
-      history <- attr(e1, "ggcall")
-    } else {
-      history <- list()
-    }
 
     if (inherits(e2, "ggcall")) {
-      history <- c(history, call("(", ggcall(e2)))
+      history <- call("(", ggcall(e2))
     } else {
-      history <- c(history, list(substitute(e2)))
+      history <- substitute(e2)
     }
 
-    attr(plot, "ggcall") <- history
+    attr(plot, "ggcall") <- bquote(.(attr(plot, "ggcall")) + .(history))
 
     if (!identical(attr(e1, "ggcall_env_last"), parent.frame())) {
       attr(plot, "ggcall_env") <- merge_env(attr(plot, "ggcall_env"), parent.frame())
@@ -117,8 +110,7 @@ ggplot <- function(...) {
 #'
 ggcall <- function(plot) {
   stopifnot(inherits(plot, "ggcall"))
-  history_attr <- attr(plot, "ggcall")
-  res <- Reduce(function(x, y) bquote(.(x) + .(y)), history_attr)
+  res <- attr(plot, "ggcall")
   class(res) <- "ggcall_code"
   attr(res, "ggcall_env") <- attr(plot, "ggcall_env")
   res
