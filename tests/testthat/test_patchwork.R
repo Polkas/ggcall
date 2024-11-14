@@ -54,21 +54,21 @@ test_that("internal patchwork", {
       geom_bar(aes(carb))
 
     # Stacking and packing
-    (p1 | p2 | p3)
+    (p1 | p2 - p3 * p4 + p1)
   }
 
   plot <- ggcall(funy())
+
   deplot <- backports:::deparse1(plot)
 
   expect_identical(
     deplot,
     backports:::deparse1(
       quote(
-        ggplot(mtcars) +
-          geom_point(aes(mpg, disp)) | ggplot(mtcars) +
-          geom_boxplot(aes(gear, disp, group = gear)) | ggplot(mtcars) +
-          geom_bar(aes(gear)) +
-          facet_wrap(~cyl)
+        ggplot(mtcars) + geom_point(aes(mpg, disp)) | ggplot(mtcars) +
+          geom_boxplot(aes(gear, disp, group = gear)) -
+          (ggplot(mtcars) + geom_bar(aes(gear)) + facet_wrap(~cyl)) *
+          (ggplot(mtcars) +  geom_bar(aes(carb))) + (ggplot(mtcars) + geom_point(aes(mpg, disp)))
       )
     )
   )

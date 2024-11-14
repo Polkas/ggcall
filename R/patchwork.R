@@ -6,6 +6,7 @@
   if (inherits(e1, "ggcall") && inherits(e2, "ggcall")) {
     attr(plot, "ggcall") <- bquote(.(ggcall(e1)) - .(ggcall(e2)))
     attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), attr(e2, "ggcall_env"))
+    class(plot) <- unique(c("ggcall", class(plot)))
   }
   plot
 }
@@ -19,6 +20,7 @@
   if (inherits(e1, "ggcall") && inherits(e2, "ggcall")) {
     attr(plot, "ggcall") <- bquote(.(ggcall(e1)) / .(ggcall(e2)))
     attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), attr(e2, "ggcall_env"))
+    class(plot) <- unique(c("ggcall", class(plot)))
   }
   plot
 }
@@ -31,6 +33,7 @@
   if (inherits(e1, "ggcall") && inherits(e2, "ggcall")) {
     attr(plot, "ggcall") <- bquote(.(ggcall(e1)) | .(ggcall(e2)))
     attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), attr(e2, "ggcall_env"))
+    class(plot) <- unique(c("ggcall", class(plot)))
   }
   plot
 }
@@ -42,6 +45,7 @@
   if (inherits(e1, "ggcall") && inherits(e2, "ggcall")) {
     attr(plot, "ggcall") <- bquote(.(ggcall(e1)) * .(ggcall(e2)))
     attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), attr(e2, "ggcall_env"))
+    class(plot) <- unique(c("ggcall", class(plot)))
   }
   plot
 }
@@ -54,6 +58,7 @@
   if (inherits(e1, "ggcall") && inherits(e2, "ggcall")) {
     attr(plot, "ggcall") <- bquote(.(ggcall(e1)) & .(ggcall(e2)))
     attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), attr(e2, "ggcall_env"))
+    class(plot) <- unique(c("ggcall", class(plot)))
   }
   plot
 }

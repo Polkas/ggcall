@@ -64,6 +64,7 @@ ggplot <- function(...) {
       attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), parent.frame())
     }
     attr(plot, "ggcall_env_last") <- parent.frame()
+    class(plot) <- unique(c("ggcall", class(plot)))
   }
 
   plot
