@@ -1,8 +1,7 @@
 test_that("custom ggplot function initializes history", {
   p <- ggplot(mtcars, aes(x = wt, y = mpg))
   expect_s3_class(p, "ggcall")
-  expect_type(attr(p, "ggcall"), "list")
-  expect_length(attr(p, "ggcall"), 1)
+  expect_type(attr(p, "ggcall"), "language")
   expect_true(inherits(attr(p, "ggcall_env"), "environment"))
   expect_true(inherits(attr(p, "ggcall_env_last"), "environment"))
 })
@@ -10,7 +9,7 @@ test_that("custom ggplot function initializes history", {
 test_that("custom '+' operator appends history", {
   p <- ggplot(mtcars, aes(x = wt, y = mpg))
   p <- p + geom_point()
-  expect_length(attr(p, "ggcall"), 2)
+  expect_type(attr(p, "ggcall"), "language")
 })
 
 func <- function(x, y) {

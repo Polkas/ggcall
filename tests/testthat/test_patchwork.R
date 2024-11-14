@@ -24,4 +24,16 @@ test_that("patchwork + operator", {
     )
   )
   expect_true(is.ggplot(eval_ggcall(plot)))
+
+  plot <- ggcall(p1 / p2 - p3)
+  deplot <- backports:::deparse1(plot)
+  expect_identical(
+    deplot,
+    backports:::deparse1(
+      quote((ggplot(mtcars) + geom_point(aes(mpg, disp)))/(ggplot(mtcars) +
+                  geom_boxplot(aes(gear, disp, group = gear))) - (ggplot(mtcars) + geom_bar(aes(gear)) + facet_wrap(~cyl))
+      )
+    )
+  )
+  expect_true(is.ggplot(eval_ggcall(plot)))
 })

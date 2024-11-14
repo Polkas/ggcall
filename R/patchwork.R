@@ -9,6 +9,7 @@
   }
   plot
 }
+
 #' @importFrom grid is.grob
 #' @rdname plot_arithmetic
 #' @export

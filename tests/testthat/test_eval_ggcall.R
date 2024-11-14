@@ -67,7 +67,7 @@ test_that("eval_ggcall reproduces the plot", {
   plot_call <- ggcall(p)
   reconstructed_plot <- eval_ggcall(plot_call)
   expect_true(inherits(reconstructed_plot, "ggplot"))
-  expect_length(attr(reconstructed_plot, "ggcall"), 2)
+  expect_type(attr(reconstructed_plot, "ggcall"), "language")
 
   original_plot <- ggplot(mtcars, aes(x = wt, y = mpg)) +
     geom_point(alpha = 0.4) +
@@ -125,5 +125,5 @@ testthat::test_that("eval_ggcall works with ellipsis", {
   new_plot <- eval_ggcall(plot_call, mtcars = mtcars2)
   expect_identical(nrow(new_plot$data), 10L)
   expect_true(inherits(new_plot, "ggplot"))
-  expect_length(attr(new_plot, "ggcall"), 2)
+  expect_type(attr(new_plot, "ggcall"), "language")
 })
