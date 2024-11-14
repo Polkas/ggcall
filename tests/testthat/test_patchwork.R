@@ -65,10 +65,16 @@ test_that("internal patchwork", {
     deplot,
     backports:::deparse1(
       quote(
-        ggplot(mtcars) + geom_point(aes(mpg, disp)) | ggplot(mtcars) +
+        ggplot(mtcars) +
+          geom_point(aes(mpg, disp)) | ggplot(mtcars) +
           geom_boxplot(aes(gear, disp, group = gear)) -
-          (ggplot(mtcars) + geom_bar(aes(gear)) + facet_wrap(~cyl)) *
-          (ggplot(mtcars) +  geom_bar(aes(carb))) + (ggplot(mtcars) + geom_point(aes(mpg, disp)))
+          (ggplot(mtcars) +
+            geom_bar(aes(gear)) +
+            facet_wrap(~cyl)) *
+            (ggplot(mtcars) +
+              geom_bar(aes(carb))) +
+          (ggplot(mtcars) +
+            geom_point(aes(mpg, disp)))
       )
     )
   )
