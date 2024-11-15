@@ -52,17 +52,21 @@ ggplot <- function(...) {
   validate_ggplot()
 
   if (inherits(e1, "ggcall")) {
+
     if (inherits(e2, "ggcall")) {
       validate_patchwork()
-      newcall <- bquote(.(ggcall(e1)) + .(call("(", ggcall(e2))))
+      newcall <- call("(", ggcall(e2))
     } else {
-      newcall <- bquote(.(ggcall(e1)) + .(substitute(e2)))
+      newcall <- substitute(e2)
     }
+
     plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
-    attr(plot, "ggcall") <- newcall
+    attr(plot, "ggcall") <- bquote(.(ggcall(e1)) + .(newcall))
+
     if (!identical(attr(e1, "ggcall_env_last"), parent.frame())) {
       attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), parent.frame())
     }
+
     attr(plot, "ggcall_env_last") <- parent.frame()
     class(plot) <- unique(c("ggcall", class(plot)))
   }
