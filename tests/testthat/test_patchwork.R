@@ -1,5 +1,3 @@
-library(patchwork)
-
 test_that("patchwork + operator", {
   p1 <- ggplot(mtcars) +
     geom_point(aes(mpg, disp))
@@ -10,6 +8,7 @@ test_that("patchwork + operator", {
     facet_wrap(~cyl)
   p4 <- ggplot(mtcars) +
     geom_bar(aes(carb))
+  expect_silent(p1 + p2 + p3 + plot_layout(ncol = 1))
   plot <- ggcall(p1 + p2 + p3 + plot_layout(ncol = 1))
   deplot <- backports:::deparse1(plot)
   expect_identical(
@@ -26,7 +25,7 @@ test_that("patchwork + operator", {
     )
   )
   expect_true(is.ggplot(eval_ggcall(plot)))
-
+  expect_silent(p1 / p2 - p3)
   plot <- ggcall(p1 / p2 - p3)
   deplot <- backports:::deparse1(plot)
   expect_identical(

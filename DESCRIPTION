@@ -15,11 +15,11 @@ License: Apache License (>= 2)
 Encoding: UTF-8
 LazyData: true
 Depends: 
-    ggplot2
+    ggplot2,
+    patchwork
 RoxygenNote: 7.3.2
 Suggests: 
     backports,
     styler,
-    patchwork,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

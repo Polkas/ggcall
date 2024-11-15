@@ -50,16 +50,17 @@ ggplot <- function(...) {
 #'
 `+.gg` <- function(e1, e2) {
   validate_ggplot()
+  validate_patchwork()
+
+  plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
 
   if (inherits(e1, "ggcall")) {
     if (inherits(e2, "ggcall")) {
-      validate_patchwork()
       newcall <- call("(", ggcall(e2))
     } else {
       newcall <- substitute(e2)
     }
 
-    plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
     attr(plot, "ggcall") <- bquote(.(ggcall(e1)) + .(newcall))
 
     if (!identical(attr(e1, "ggcall_env_last"), parent.frame())) {
