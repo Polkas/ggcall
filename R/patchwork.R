@@ -6,9 +6,9 @@ validate_patchwork <- function() {
 }
 
 #' @keywords internal
-patch_operator_base <- function(e1, e2, operator) {
+patch_operator_base <- function(e1, e2, operator, class) {
   validate_patchwork()
-  plot <- utils::getFromNamespace("-.ggplot", "patchwork")(e1, e2)
+  plot <- utils::getFromNamespace(sprintf("%s.%s", operator, class), "patchwork")(e1, e2)
   if (inherits(e1, "ggcall") && inherits(e2, "ggcall")) {
     attr(plot, "ggcall") <- as.call(list(as.name(operator), ggcall(e1), ggcall(e2)))
     attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), attr(e2, "ggcall_env"))
@@ -19,25 +19,25 @@ patch_operator_base <- function(e1, e2, operator) {
 
 #' @export
 "-.ggcall" <- function(e1, e2) {
-  patch_operator_base(e1, e2, "-")
+  patch_operator_base(e1, e2, "-", "ggplot")
 }
 
 #' @export
 "/.ggcall" <- function(e1, e2) {
-  patch_operator_base(e1, e2, "/")
+  patch_operator_base(e1, e2, "/", "ggplot")
 }
 
 #' @export
 "|.ggcall" <- function(e1, e2) {
-  patch_operator_base(e1, e2, "|")
+  patch_operator_base(e1, e2, "|", "ggplot")
 }
 
 #' @export
 "*.ggcall" <- function(e1, e2) {
-  patch_operator_base(e1, e2, "*")
+  patch_operator_base(e1, e2, "*", "gg")
 }
 
 #' @export
 "&.ggcall" <- function(e1, e2) {
-  patch_operator_base(e1, e2, "&")
+  patch_operator_base(e1, e2, "&", "gg")
 }
