@@ -52,7 +52,6 @@ ggplot <- function(...) {
   validate_ggplot()
 
   if (inherits(e1, "ggcall")) {
-
     if (inherits(e2, "ggcall")) {
       validate_patchwork()
       newcall <- call("(", ggcall(e2))
