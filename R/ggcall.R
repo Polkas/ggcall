@@ -50,16 +50,16 @@ ggplot <- function(...) {
 #'
 `+.gg` <- function(e1, e2) {
   validate_ggplot()
-  validate_patchwork()
-  plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
 
   if (inherits(e1, "ggcall")) {
     if (inherits(e2, "ggcall")) {
-      attr(plot, "ggcall") <- bquote(.(ggcall(e1)) + .(call("(", ggcall(e2))))
+      validate_patchwork()
+      newcall <- bquote(.(ggcall(e1)) + .(call("(", ggcall(e2))))
     } else {
-      history <- substitute(e2)
-      attr(plot, "ggcall") <- bquote(.(ggcall(e1)) + .(history))
+      newcall <- bquote(.(ggcall(e1)) + .(substitute(e2)))
     }
+    plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
+    attr(plot, "ggcall") <- newcall
     if (!identical(attr(e1, "ggcall_env_last"), parent.frame())) {
       attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), parent.frame())
     }
