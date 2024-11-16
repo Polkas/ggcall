@@ -1,7 +1,7 @@
 #' @keywords internal
 validate_patchwork <- function() {
-  if (!requireNamespace("patchwork")) {
-    stop("patchwork package has to be installed.")
+  if (!"patchwork" %in% loadedNamespaces()) {
+    stop("patchwork package has to be library/require first.")
   }
 }
 
@@ -10,7 +10,9 @@ patch_operator_base <- function(e1, e2, operator, class) {
   validate_patchwork()
   plot <- utils::getFromNamespace(sprintf("%s.%s", operator, class), "patchwork")(e1, e2)
   if (inherits(e1, "ggcall") && inherits(e2, "ggcall")) {
-    attr(plot, "ggcall") <- as.call(list(as.name(operator), ggcall(e1), ggcall(e2)))
+    lhs <- ggcall(e1)
+    rhs <- ggcall(e2)
+    attr(plot, "ggcall") <- as.call(list(as.name(operator), lhs, rhs))
     attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), attr(e2, "ggcall_env"))
     class(plot) <- unique(c("ggcall", class(plot)))
   }

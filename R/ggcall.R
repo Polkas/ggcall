@@ -50,18 +50,20 @@ ggplot <- function(...) {
 #'
 `+.gg` <- function(e1, e2) {
   validate_ggplot()
-  validate_patchwork()
 
-  plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
+  gg_plus_function <- utils::getFromNamespace("+.gg", "ggplot2")
 
   if (inherits(e1, "ggcall")) {
     if (inherits(e2, "ggcall")) {
-      newcall <- call("(", ggcall(e2))
+      validate_patchwork()
+      newcall <- ggcall(e2)
     } else {
       newcall <- substitute(e2)
     }
 
-    attr(plot, "ggcall") <- bquote(.(ggcall(e1)) + .(newcall))
+    plot <- gg_plus_function(e1, e2)
+    # substitute is faster than bquote
+    attr(plot, "ggcall") <- substitute(lhs + rhs, env = list(lhs = ggcall(e1), rhs = newcall))
 
     if (!identical(attr(e1, "ggcall_env_last"), parent.frame())) {
       attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), parent.frame())
@@ -69,6 +71,8 @@ ggplot <- function(...) {
 
     attr(plot, "ggcall_env_last") <- parent.frame()
     class(plot) <- unique(c("ggcall", class(plot)))
+  } else {
+    plot <- gg_plus_function(e1, e2)
   }
 
   plot
