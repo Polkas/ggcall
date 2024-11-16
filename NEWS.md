@@ -1,6 +1,6 @@
 # ggcall v0.2.9000
 
-* Edited README file with more clear examples.
+* Edited README file.
 
 # ggcall v0.2.0
 
