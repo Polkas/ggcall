@@ -1,6 +1,7 @@
 # ggcall v0.3.0.9000
 
 * Added support for ggplot related patchwork operators.
+* Edited README file.
 
 # ggcall v0.2.0
 
