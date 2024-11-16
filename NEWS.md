@@ -1,3 +1,7 @@
+# ggcall v0.2.9000
+
+* Edited README file with more clear examples.
+
 # ggcall v0.2.0
 
 * Added plot_call_with_assignments function, ggcall can be extended with connected variables assignments.
