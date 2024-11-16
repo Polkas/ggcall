@@ -1,13 +1,8 @@
 #' @keywords internal
-validate_patchwork <- function() {
+patch_operator_base <- function(e1, e2, operator, class) {
   if (!"patchwork" %in% loadedNamespaces()) {
     stop("patchwork package has to be library/require first.")
   }
-}
-
-#' @keywords internal
-patch_operator_base <- function(e1, e2, operator, class) {
-  validate_patchwork()
   plot <- utils::getFromNamespace(sprintf("%s.%s", operator, class), "patchwork")(e1, e2)
   if (inherits(e1, "ggcall") && inherits(e2, "ggcall")) {
     lhs <- ggcall(e1)
