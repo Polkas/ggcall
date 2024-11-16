@@ -8,7 +8,7 @@ The `ggcall` package enhances the functionality of `ggplot2` by enabling users t
 
 `ggcall` is especially useful for R developers who build their own packages comprising functions that generate `ggplot2` plots. These functions often involve multiple layers and complex plotting logic. By using `ggcall`, developers can make their plotting solutions more transparent and reproducible, thereby enhancing the utility and reliability of their packages. Please note, `ggcall` is not intended for packages that create custom geom/stat functions.
 
-`ggcall` makes a developers life easier and limit the need to use base r metaprogramming or `rlang`.
+`ggcall` makes a developer's life easier and limits the need to use base r metaprogramming or `rlang`.
 
 An excellent implementation example is to create a bunch of ggplot templates, and we want them to be functions.
 Then, each template will generate the expected plot, and the ggplot2 code behind is easy to get.
