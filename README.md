@@ -1,5 +1,5 @@
 # ggcall <a href='https://github.com/polkas/ggcall'><img src='man/figures/ggcall_logo.png' align="right" width="200px" /></a>
-[![R build status](https://github.com/polkas/ggcall/workflows/R/badge.svg)](https://github.com/polkas/ggcall/actions)
+[![R build status](https://github.com/polkas/ggcall/workflows/R-CMD-check/badge.svg)](https://github.com/polkas/ggcall/actions)
 [![codecov](https://codecov.io/gh/Polkas/ggcall/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Polkas/ggcall)
 
 ## Overview
