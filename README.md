@@ -69,7 +69,7 @@ plot_call
 Here is a **more complex** illustrative example with `patchwork` usage and other `ggcall` utils functions.
 
 <details>
-<summary>**Click to Get the Example**</summary>
+<summary><strong>Click to Get the Example</strong></summary>
 
 ```r
 remotes::install_github("https://github.com/Polkas/ggcall")
@@ -202,7 +202,7 @@ already existing `+.gg` operator is located in R/ggpairs_add.R.
 The `GGally` package fork with implemented `ggcall` is available on [Github](https://github.com/Polkas/ggally).  
 
 <details>
-<summary>**Click to See Example Implementation in GGally Package**</summary>
+<summary><strong>Click to See Example Implementation in GGally Package</strong></summary>
 
 Here is an illustrative example with the `GGally::ggcorr` function from the fork with `ggcall`:
 
