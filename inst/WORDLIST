@@ -34,6 +34,7 @@ init
 iproute
 jq
 json
+knitr
 krb
 LazyData
 libc
@@ -76,6 +77,7 @@ REditorSupport
 remoteUser
 Reproducibility
 reproducibility
+rmarkdown
 RoxygenNote
 rsync
 rterm
@@ -97,6 +99,7 @@ Uncomment
 usr
 ust
 ver
+VignetteBuilder
 vscode
 wget
 zlib
