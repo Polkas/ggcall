@@ -41,3 +41,8 @@ test_that("ggcall returns correct call", {
   plot_call2 <- ggcall(funy())
   testthat::expect_identical(backports:::deparse1(plot_call1), backports:::deparse1(plot_call2))
 })
+
+test_that("ggcall + works even with non ggcall object - less restrictive", {
+  expect_silent(ggplot2::ggplot() + geom_line())
+  expect_error(ggcall(ggplot2::ggplot() + geom_line()), "inherit")
+})

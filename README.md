@@ -6,11 +6,13 @@
 
 The `ggcall` package enhances the functionality of `ggplot2` by enabling users to retrieve the complete code used to generate a `ggplot` object. This package is beneficial for understanding and replicating complex `ggplot2` plots, especially when the original code is not accessible, e.g., hidden in the package's internals.
 
-`ggcall` is especially useful for R developers who build their own packages comprising functions that generate `ggplot2` plots. These functions often involve multiple layers and complex plotting logic. By using `ggcall`, developers can make their plotting solutions more transparent and reproducible, thereby enhancing the utility and reliability of their packages. Please note, `ggcall` is not intended for packages that create custom geom/stat functions.
-
 `ggcall` makes a developer's life easier and limits the need to use base r metaprogramming or `rlang`.
 
-`patchwork` ggplot2 related operator are suppirted.
+`ggcall` is especially useful for R developers who build their own packages comprising functions that generate `ggplot2` plots. These functions often involve multiple layers and complex plotting logic. By using `ggcall`, developers can make their plotting solutions more transparent and reproducible, thereby enhancing the utility and reliability of their packages. Please note, `ggcall` is not intended for packages that create custom geom/stat functions.
+
+`patchwork` ggplot2 related operator are supported. 
+`patchwork` is a package that expands the API to allow for arbitrarily complex composition of plots by, 
+among others, providing mathematical operators for combining multiple plots.
 
 An excellent implementation example is to create a bunch of ggplot templates, and we want them to be functions.
 Then, each template will generate the expected plot, and the ggplot2 code behind is easy to get.
@@ -109,6 +111,7 @@ eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "disp")
 
 ```
 # copy paste the ggcall.R file to your own package
+# OPTIONAL copy paste the patchwork.R file if you need patchwork support
 # you may need to update the file time to time
 ```
 
