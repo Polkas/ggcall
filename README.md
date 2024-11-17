@@ -28,6 +28,7 @@ With `ggcall`, retrieving the construction calls of a `ggplot` object is straigh
 ```r
 remotes::install_github("https://github.com/Polkas/ggcall")
 library(ggcall)
+library(patchwork)
 
 # Example: Create a function which combines a few ggplot layers
 # Typically, it will be a function from your R package where you implemented ggcall
@@ -70,6 +71,15 @@ plot_call
 # Optionally: Style the code with styler
 # install.packages("styler")
 styler::style_text(backports:::deparse1(plot_call))
+# ggplot(data, aes(x = .data[[x]], y = .data[[y]])) +
+#   geom_point(alpha = 0.4) +
+#   facet_grid(~gear) +
+#   theme(axis.title.x = element_blank()) +
+#   labs(title = "custom title") +
+#   ggplot(data, aes(x = .data[[x]], y = .data[[y]])) +
+#   geom_point() +
+#   theme(axis.title.y = element_blank(), axis.title.x = element_text(hjust = -0.15)) +
+#   plot_annotation(caption = "My Caption")
 
 # Optionally: add assignments to call
 plot_call_with_assignments <- ggcall_add_assignments(plot_call)
