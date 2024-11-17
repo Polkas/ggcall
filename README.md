@@ -10,6 +10,8 @@ The `ggcall` package enhances the functionality of `ggplot2` by enabling users t
 
 `ggcall` makes a developer's life easier and limits the need to use base r metaprogramming or `rlang`.
 
+`patchwork` ggplot2 related operator are suppirted.
+
 An excellent implementation example is to create a bunch of ggplot templates, and we want them to be functions.
 Then, each template will generate the expected plot, and the ggplot2 code behind is easy to get.
 
@@ -38,10 +40,16 @@ func <- function(data, x, y, bool = TRUE) {
   }
 
   func_internal <- function(gg) {
-    gg + labs(x = "custom xlab")
+    gg + labs(title = "custom title")
   }
 
-  func_internal(gg)
+  # patchwork +
+  func_internal(gg) + 
+  # another ggplot added with patchwork
+  ggplot(data, aes(x = .data[[x]], y = .data[[y]])) + 
+  geom_point() + 
+  theme(axis.title.y = element_blank(), axis.title.x = element_text(hjust = -0.15)) +
+  plot_annotation(caption = "My Caption")
 }
 
 # gg_plot is a ggplot object
@@ -52,7 +60,9 @@ plot_call <- ggcall(gg_plot)
 plot_call
 # ggplot(data, aes(x = .data[[x]], y = .data[[y]])) + geom_point(alpha = 0.4) + 
 #     facet_grid(~gear) + theme(axis.title.x = element_blank()) + 
-#     labs(x = "custom xlab")
+#     labs(title = "custom title") + ggplot(data, aes(x = .data[[x]], 
+#     y = .data[[y]])) + geom_point() + theme(axis.title.y = element_blank(), 
+#     axis.title.x = element_text(hjust = -0.15)) + plot_annotation(caption = "My Caption")
 # ...
 
 # Optionally: Style the code with styler
@@ -76,7 +86,7 @@ eval_ggcall(plot_call)
 eval_ggcall(plot_call_with_assignments)
 
 # Optionally overwrite variables
-eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "gear")
+eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "disp")
 ```
 
 ## Features
