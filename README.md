@@ -4,11 +4,9 @@
 
 ## Overview
 
-The `ggcall` package enhances the functionality of `ggplot2` by enabling users to retrieve the complete code used to generate a `ggplot` object. This package is beneficial for understanding and replicating complex `ggplot2` plots, especially when the original code is not accessible, e.g., hidden in the package's internals.
+The `ggcall` package enhances the functionality of `ggplot2` by enabling users to retrieve the complete code used to generate a `ggplot` object inside a function. This package is beneficial for understanding and replicating complex `ggplot2` plots returned by a function. From technical point of view, `ggcall` extends `ggplot2` `+` operator and `ggplot` function to track the history of plot construction.
 
 `ggcall` makes a developer's life easier and limits the need to use base r metaprogramming or `rlang`.
-
-`ggcall` is especially useful for R developers who build their own packages comprising functions that generate `ggplot2` plots. These functions often involve multiple layers and complex plotting logic. By using `ggcall`, developers can make their plotting solutions more transparent and reproducible, thereby enhancing the utility and reliability of their packages. Please note, `ggcall` is not intended for packages that create custom geom/stat functions.
 
 `patchwork` ggplot2 related operators like `+`, `-`, `*`, `|`, `&` and `/` are supported. 
 `patchwork` is a package that expands the API to allow for arbitrarily complex composition of plots by, 
@@ -100,12 +98,6 @@ eval_ggcall(plot_call_with_assignments)
 # Optionally overwrite variables
 eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "disp")
 ```
-
-## Features
-
-- **Code Tracking**: Extends `ggplot2` `+` operator and `ggplot` function to track the history of plot construction.
-- **Accessible History**: Easily access the complete sequence of `ggplot2` calls that were used to build a plot.
-- **Reproducibility**: Facilitates the replication and modification of existing `ggplot2` plots.
 
 ## Implementation
 
