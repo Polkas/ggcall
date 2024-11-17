@@ -47,3 +47,7 @@ test_that("ggcall_add_assignments wrong input type", {
   expect_error(ggcall_add_assignments(ggplot()), "inherits")
   expect_error(ggcall_add_assignments(ggplot(), vars = 2), "inherits")
 })
+
+test_that("ggcall_add_assignments worng direct ggcall", {
+  expect_error(ggcall_add_assignments(ggcall(ggplot())), "symbol")
+})
