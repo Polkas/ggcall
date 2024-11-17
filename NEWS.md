@@ -1,5 +1,6 @@
 # ggcall v0.2.9000
 
+* Improved `ggcall_add_assignments` input validation for a call argument, it has to be a symbol.
 * Edited README file.
 
 # ggcall v0.2.0
