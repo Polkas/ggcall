@@ -10,7 +10,7 @@ The `ggcall` package enhances the functionality of `ggplot2` by enabling users t
 
 `ggcall` is especially useful for R developers who build their own packages comprising functions that generate `ggplot2` plots. These functions often involve multiple layers and complex plotting logic. By using `ggcall`, developers can make their plotting solutions more transparent and reproducible, thereby enhancing the utility and reliability of their packages. Please note, `ggcall` is not intended for packages that create custom geom/stat functions.
 
-`patchwork` ggplot2 related operator are supported. 
+`patchwork` ggplot2 related operators like `+`, `-`, `*`, `|`, `&` and `/` are supported. 
 `patchwork` is a package that expands the API to allow for arbitrarily complex composition of plots by, 
 among others, providing mathematical operators for combining multiple plots.
 
