@@ -4,11 +4,12 @@
 
 ## Overview
 
-The `ggcall` package enhances the functionality of `ggplot2` by enabling users to retrieve the complete code used to generate a `ggplot` object inside a function. This package is beneficial for understanding and replicating complex `ggplot2` plots returned by a function. From technical point of view, `ggcall` extends `ggplot2` `+` operator and `ggplot` function to track the history of plot construction.
+Transparency and reproducibility are fundamental principles in data analysis across various fields, from academic
+research to industry applications. The `ggcall` package enhances the functionality of `ggplot2` by enabling users to retrieve the complete code used to generate a `ggplot` object inside a function. This package is beneficial for understanding and replicating complex `ggplot2` plots returned by a function. From technical point of view, `ggcall` extends `ggplot2` `+` operator and `ggplot` function to track the history of plot construction.
 
 `ggcall` makes a developer's life easier and limits the need to use base r metaprogramming or `rlang`.
 
-`patchwork` ggplot2 related operators like `+`, `-`, `*`, `|`, `&` and `/` are supported. 
+`patchwork` ggplot2 related operators like `+`, `-`, `*`, `|`, `&` and `/` are optionally supported. 
 `patchwork` is a package that expands the API to allow for arbitrarily complex composition of plots by, 
 among others, providing mathematical operators for combining multiple plots.
 
@@ -21,7 +22,54 @@ The solution is in the early development and is expected not to work in specific
 
 ## Usage
 
-With `ggcall`, retrieving the construction calls of a `ggplot` object is straightforward:
+Imagine using a package or function that generates a complex `ggplot2` visualization.  
+Then, the ggplot code used to create the plot is not exposed.  
+`ggcall` overcomes this barrier by extracting the hidden code, making it accessible for examination and modification. 
+
+Here is a **simple** illustrative example with a scenario in which a function generates a `ggplot2` plot based on input data:
+
+```r
+remotes::install_github("https://github.com/Polkas/ggcall")
+library(ggcall)
+
+# Example: Create a function which combines a few ggplot layers
+# Typically, it will be a function from your R package where you implemented ggcall
+create_custom_plot <- function(data, x, y, bool = TRUE) {
+  # layers have to be added with +
+  gg <- ggplot(data, aes(x = .data[[x]], y = .data[[y]])) +
+    geom_point(alpha = 0.4) +
+    facet_grid(~gear)
+    
+  if (bool) {
+    gg <- gg + theme(axis.title.x = element_blank())
+  }
+
+  func_internal <- function(gg) {
+    gg + labs(title = "custom title")
+  }
+
+  func_internal(gg)
+}
+
+# gg_plot is a ggplot object
+gg_plot <- create_custom_plot(mtcars, "wt", "mpg")
+print(gg_plot)
+# Retrieve the plot construction code
+plot_call <- ggcall(gg_plot)
+plot_call
+# ggplot(data, aes(x = .data[[x]], y = .data[[y]])) + geom_point(alpha = 0.4) + 
+#     facet_grid(~gear) + theme(axis.title.x = element_blank()) + 
+#     labs(title = "custom title")
+# attr(,"class")
+# [1] "ggcall_code"
+# attr(,"ggcall_env")
+# <environment: abcd1234>
+```
+
+Here is a **more complex** illustrative example with `patchwork` usage and other `ggcall` utils functions.
+
+<details>
+<summary>**Click to Get the Example**</summary>
 
 ```r
 remotes::install_github("https://github.com/Polkas/ggcall")
@@ -30,7 +78,7 @@ library(patchwork)
 
 # Example: Create a function which combines a few ggplot layers
 # Typically, it will be a function from your R package where you implemented ggcall
-func <- function(data, x, y, bool = TRUE) {
+create_custom_plot <- function(data, x, y, bool = TRUE) {
   # layers have to be added with +
   gg <- ggplot(data, aes(x = .data[[x]], y = .data[[y]])) +
     geom_point(alpha = 0.4) +
@@ -54,7 +102,7 @@ func <- function(data, x, y, bool = TRUE) {
 }
 
 # gg_plot is a ggplot object
-gg_plot <- func(mtcars, "wt", "mpg")
+gg_plot <- create_custom_plot(mtcars, "wt", "mpg")
 print(gg_plot)
 # Retrieve the plot construction code
 plot_call <- ggcall(gg_plot)
@@ -99,7 +147,13 @@ eval_ggcall(plot_call_with_assignments)
 eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "disp")
 ```
 
+</details>
+
 ## Implementation
+
+The ggcall can be implemented in a few ways.  
+One of them is to copy and paste one or two R files to your package R directory.  
+Another option is to use the ggcall as a DESCRIPTION file dependency for your package.
 
 ### General
 
@@ -138,11 +192,19 @@ eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "disp")
 
 ### Example implementation in GGally package
 
-`ggcall` was successfully integrated into popular R packages like `GGally`. Please take into account that `GGally` had already overwritten the + `ggplot2` function. Thus, the overwriting practice seems to be popular.
+A notable example of ggcall’s successful integration is seen in the `GGally` package fork.  
+`GGally` package is a `ggplot2` extension used to create correlation matrices and scatterplot matrices.  
+As `GGally` had already overwritten the `+.gg` operator to extend ggplot2’s functionality for their own reasons, demonstrating that overwriting operators can be considered an acceptable and practical solution.  
 
-These implementations demonstrate `ggcall`’s versatility and its capability to enhance the functionality of existing packages.
+The `GGally` package required only minor changes to implement `ggcall`, showcasing how easily it can be integrated into existing solutions.   The copy and paste `ggcall` files to `GGally` are R/ggcall.R and OPTIONAL R/patchwork.R and the extended
+already existing `+.gg` operator is located in R/ggpairs_add.R.
 
-check out the inst/ggally.R for more details
+The `GGally` package fork with implemented `ggcall` is available on [Github](https://github.com/Polkas/ggally).  
+
+<details>
+<summary>**Click to See Example Implementation in GGally Package**</summary>
+
+Here is an illustrative example with the `GGally::ggcorr` function from the fork with `ggcall`:
 
 ```
 remotes::install_github("https://github.com/Polkas/ggally")
@@ -228,6 +290,7 @@ gg <- GGally::ggduo(tips, mapping = ggplot2::aes(colour = sex), columnsX = 3:4, 
 ggplot2::is.ggplot(gg)
 # Fail gg_call <- ggcall(gg)
 ```
+</details>
 
 ## Contributions
 
