@@ -51,3 +51,10 @@ test_that("ggcall_add_assignments wrong input type", {
 test_that("ggcall_add_assignments worng direct ggcall", {
   expect_error(ggcall_add_assignments(ggcall(ggplot())), "symbol")
 })
+
+test_that("ggcall_add_assignments empty vars arg", {
+  gcall <- ggcall(ggplot())
+  gcall_assignments <- ggcall_add_assignments(gcall, character(0))
+  expect_s3_class(gcall_assignments, "ggcall_code")
+  expect_type(gcall_assignments, "language")
+})

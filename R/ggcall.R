@@ -23,8 +23,7 @@ ggplot <- function(...) {
   plot <- ggplot2::ggplot(...)
 
   # Initialize the history with the first call
-  history <- list(match.call())
-  attr(plot, "ggcall") <- history
+  attr(plot, "ggcall") <- match.call()
   attr(plot, "ggcall_env") <- parent.frame()
   attr(plot, "ggcall_env_last") <- attr(plot, "ggcall_env")
   class(plot) <- c("ggcall", class(plot))
@@ -50,24 +49,34 @@ ggplot <- function(...) {
 #' @export
 #'
 `+.gg` <- function(e1, e2) {
-  stopifnot(inherits(e1, "ggcall"))
   validate_ggplot()
-  plot <- utils::getFromNamespace("+.gg", "ggplot2")(e1, e2)
 
-  # Append to the existing history
-  if (!is.null(attr(e1, "ggcall"))) {
-    history <- attr(e1, "ggcall")
+  gg_plus_function <- utils::getFromNamespace("+.gg", "ggplot2")
+
+  if (inherits(e1, "ggcall")) {
+    if (inherits(e2, "ggcall")) {
+      if (!"patchwork" %in% loadedNamespaces()) {
+        stop("patchwork package has to be library/require first.")
+      }
+      newcall <- ggcall(e2)
+    } else {
+      newcall <- substitute(e2)
+    }
+
+    plot <- gg_plus_function(e1, e2)
+    # substitute is faster than bquote
+    attr(plot, "ggcall") <- substitute(lhs + rhs, env = list(lhs = ggcall(e1), rhs = newcall))
+
+    if (!identical(attr(e1, "ggcall_env_last"), parent.frame())) {
+      attr(plot, "ggcall_env") <- merge_env(attr(e1, "ggcall_env"), parent.frame())
+    }
+
+    attr(plot, "ggcall_env_last") <- parent.frame()
+    class(plot) <- unique(c("ggcall", class(plot)))
   } else {
-    history <- list()
-  }
-  history <- c(history, list(substitute(e2)))
-  attr(plot, "ggcall") <- history
-
-  if (!identical(attr(e1, "ggcall_env_last"), parent.frame())) {
-    attr(plot, "ggcall_env") <- merge_env(attr(plot, "ggcall_env"), parent.frame())
+    plot <- gg_plus_function(e1, e2)
   }
 
-  attr(plot, "ggcall_env_last") <- parent.frame()
   plot
 }
 
@@ -109,8 +118,7 @@ ggplot <- function(...) {
 #'
 ggcall <- function(plot) {
   stopifnot(inherits(plot, "ggcall"))
-  history_attr <- attr(plot, "ggcall")
-  res <- Reduce(function(x, y) bquote(.(x) + .(y)), history_attr)
+  res <- attr(plot, "ggcall")
   class(res) <- "ggcall_code"
   attr(res, "ggcall_env") <- attr(plot, "ggcall_env")
   res
@@ -171,7 +179,7 @@ ggcall_add_assignments <- function(call, vars = extract_names(call)) {
 
   ggcall_name <- substitute(call)
   if (!is.symbol(ggcall_name)) {
-    stop("call argument has to be a symbol (variable name) pointing a ggcall() output object.")
+    stop("call argument has to be a symbol (variable name) pointing a ggcall() object.")
   }
 
   env <- ggcall_env(call)

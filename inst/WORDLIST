@@ -20,7 +20,10 @@ FRONTEND
 ggally
 GGally
 ggcall
+ggcall’s
+ggpairs
 ggplot
+Github
 gitlens
 gmail
 gnupg
@@ -31,6 +34,7 @@ init
 iproute
 jq
 json
+knitr
 krb
 LazyData
 libc
@@ -72,6 +76,8 @@ README
 REditorSupport
 remoteUser
 Reproducibility
+reproducibility
+rmarkdown
 RoxygenNote
 rsync
 rterm
@@ -93,6 +99,7 @@ Uncomment
 usr
 ust
 ver
+VignetteBuilder
 vscode
 wget
 zlib
