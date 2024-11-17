@@ -179,7 +179,7 @@ ggcall_add_assignments <- function(call, vars = extract_names(call)) {
 
   ggcall_name <- substitute(call)
   if (!is.symbol(ggcall_name)) {
-    stop("call argument has to be a symbol (variable name) pointing a ggcall() output object.")
+    stop("call argument has to be a symbol (variable name) pointing a ggcall() object.")
   }
 
   env <- ggcall_env(call)

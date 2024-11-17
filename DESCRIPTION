@@ -18,8 +18,8 @@ Depends:
     ggplot2
 Suggests: 
     backports,
-    styler,
     patchwork,
+    styler,
     testthat (>= 3.0.0)
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
