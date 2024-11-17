@@ -1,5 +1,6 @@
-# ONE FILE TO UPDATE AND ONE FILE TO CREATE
-# UPDATE ggpairs_add.R and create ggcall.R
+# ONE FILE TO UPDATE AND ONE OR TWO FILES TO CREATE
+
+# UPDATE ggpairs_add.R and create ggcall.R and optionally patchwork.R
 
 # UPDATE a function in ggpairs_add.R
 
@@ -89,3 +90,6 @@
 
 # CREATE A NEW file ggcall.R
 # COPY PASTE THE WHOLE CODE FROM R/ggcall.R instead of +.gg function
+
+# OPTIONALLY CREATE A NEW file patchwork.R
+# COPY PASTE THE WHOLE CODE FROM R/patchwork.R
