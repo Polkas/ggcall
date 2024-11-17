@@ -43,6 +43,8 @@ test_that("ggcall returns correct call", {
 })
 
 test_that("ggcall + works even with non ggcall object - less restrictive", {
-  expect_silent(ggplot2::ggplot() + geom_line())
-  expect_error(ggcall(ggplot2::ggplot() + geom_line()), "inherit")
+  expect_silent(ggplot2::ggplot() +
+    geom_line())
+  expect_error(ggcall(ggplot2::ggplot() +
+    geom_line()), "inherit")
 })
