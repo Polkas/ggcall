@@ -1,3 +1,7 @@
+# ggcall v0.3.0.9000
+
+* First CRAN release.
+
 # ggcall v0.3.0
 
 * Added support for ggplot related patchwork operators.
