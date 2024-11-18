@@ -72,7 +72,41 @@ plot_call
 # [1] "ggcall_code"
 # attr(,"ggcall_env")
 # <environment: abcd1234>
+
+styler::style_text(backports:::deparse1(plot_call))
+
+# Optionally: add assignments to call
+plot_call_with_assignments <- ggcall_add_assignments(plot_call)
+styler::style_text(
+  paste(deparse(plot_call_with_assignments), collapse = "\n")
+)
+
+# Optionally: access call environment
+# Access call environment and/or use it to evaluate the call
+plot_call_env <- ggcall_env(plot_call)
+as.list(plot_call_env)
+
+# Optionally: reevaulate the call
+# Reproduce the plot by evaluating the code
+eval_ggcall(plot_call)
+eval_ggcall(plot_call_with_assignments)
+
+# Optionally overwrite variables
+eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "disp")
 ```
+
+Functions Reference:
+
+| Function                | Description    |
+|-------------------------|-------------------------------------------------------------------------------------|
+| `ggplot`                | **Overrides the default `ggplot` function from the ggplot2 package, adding the capability to track the history of plot construction.**|
+| `+.gg`                  | **Enhances the '+' operator for ggplot objects to track**the history of plot layers and modifications. |
+| `ggcall`                | **Extracts the complete history of a ggplot object's construction, providing a way to reproduce or inspect the plot.**|
+| `ggcall_add_assignments`| **Modifies a `ggcall()` object by adding variable assignments to it.**|
+| `eval_ggcall`           | **Evaluates an expression representing a ggplot construction code.**|
+| `ggcall_env`            | **Extracts the environment in which the ggplot construction code was originally created.**|
+|`+`, `-`, `*`, `|`, `&` and `/` | **Overloaded patchwork operators**|
+
 
 ## Note
 
