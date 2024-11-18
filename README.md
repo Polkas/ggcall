@@ -105,7 +105,7 @@ Functions Reference:
 | `ggcall_add_assignments`| **Modifies a `ggcall()` object by adding variable assignments to it.**|
 | `eval_ggcall`           | **Evaluates an expression representing a ggplot construction code.**|
 | `ggcall_env`            | **Extracts the environment in which the ggplot construction code was originally created.**|
-|`+`, `-`, `*`, `|`, `&` and `/` | **Overloaded patchwork operators**|
+|`+`, `-`, `*`, `\|`, `&` and `/` | **Overloaded patchwork operators**|
 
 
 ## Note
