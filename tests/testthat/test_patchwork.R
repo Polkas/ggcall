@@ -6,17 +6,47 @@ p2 <- ggplot(mtcars) + geom_boxplot(aes(gear, disp, group = gear))
 p3 <- ggplot(mtcars) + geom_bar(aes(gear)) + facet_wrap(~cyl)
 p4 <- ggplot(mtcars) + geom_bar(aes(carb))
 
-test_that("lack of patchwork", {
-  expect_error(p1 + p2, "patchwork package has to be library/require first")
+test_that("patchwork + operator pure", {
+  expect_error(p1 + p2 + p3, NA)
+  gcall <- ggcall(p1 + p2 + p3)
+  decall <- backports:::deparse1(gcall)
+  expect_identical(
+    decall,
+    backports:::deparse1(
+      quote(
+        ggplot(mtcars) + geom_point(aes(mpg, disp)) +
+          (ggplot(mtcars) + geom_boxplot(aes(gear, disp, group = gear))) +
+          (ggplot(mtcars) + geom_bar(aes(gear)) + facet_wrap(~cyl))
+      )
+    )
+  )
+  expect_true(is.ggplot(eval_ggcall(gcall)))
 })
 
-test_that("lack of patchwork", {
-  expect_error(p1 * p2, "patchwork package has to be library/require first")
+test_that("patchwork operators - direct pure", {
+  expect_error(p1 | p2 - p3 * p4 + p1 & p2 | p3, NA)
+  gcall <- ggcall(p1 | p2 - p3 * p4 + p1 & p2 | p3)
+  decall <- backports:::deparse1(gcall)
+  expect_identical(
+    decall,
+    backports:::deparse1(
+      quote(
+        ggplot(mtcars) + geom_point(aes(mpg, disp)) |
+          ggplot(mtcars) + geom_boxplot(aes(gear, disp, group = gear)) -
+          (ggplot(mtcars) + geom_bar(aes(gear)) + facet_wrap(~cyl)) *
+          (ggplot(mtcars) + geom_bar(aes(carb))) +
+          (ggplot(mtcars) + geom_point(aes(mpg, disp))) &
+          ggplot(mtcars) + geom_boxplot(aes(gear, disp, group = gear)) |
+          ggplot(mtcars) + geom_bar(aes(gear)) + facet_wrap(~cyl)
+      )
+    )
+  )
+  expect_true(is.ggplot(eval_ggcall(gcall)))
 })
 
 library(patchwork)
 
-test_that("patchwork + operator", {
+test_that("patchwork + operator with patchwork", {
   expect_error(p1 + p2 + p3 + plot_layout(ncol = 1), NA)
   gcall <- ggcall(p1 + p2 + p3 + plot_layout(ncol = 1))
   decall <- backports:::deparse1(gcall)
