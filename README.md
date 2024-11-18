@@ -1,5 +1,5 @@
 # ggcall <a href='https://github.com/polkas/ggcall'><img src='man/figures/ggcall_logo.png' align="right" width="200px" /></a>
-[![R build status](https://github.com/polkas/ggcall/workflows/R/badge.svg)](https://github.com/polkas/ggcall/actions)
+[![R build status](https://github.com/polkas/ggcall/workflows/R-CMD-check/badge.svg)](https://github.com/polkas/ggcall/actions)
 [![codecov](https://codecov.io/gh/Polkas/ggcall/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Polkas/ggcall)
 
 ## Overview
@@ -97,10 +97,10 @@ eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "disp")
 
 Functions Reference:
 
-| Function                | Description    |
+| Function                | Description                                                                         |
 |-------------------------|-------------------------------------------------------------------------------------|
 | `ggplot`                | **Overrides the default `ggplot` function from the ggplot2 package, adding the capability to track the history of plot construction.**|
-| `+.gg`                  | **Enhances the '+' operator for ggplot objects to track**the history of plot layers and modifications. |
+| `+.gg`                  | **Enhances the '+' operator for ggplot objects to track the history of plot layers and modifications.** |
 | `ggcall`                | **Extracts the complete history of a ggplot object's construction, providing a way to reproduce or inspect the plot.**|
 | `ggcall_add_assignments`| **Modifies a `ggcall()` object by adding variable assignments to it.**|
 | `eval_ggcall`           | **Evaluates an expression representing a ggplot construction code.**|
