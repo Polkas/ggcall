@@ -128,7 +128,72 @@ Then, the ggplot code used to create the plot is not exposed.<br><code>ggcall</c
 <span><span class="co"># attr(,"class")</span></span>
 <span><span class="co"># [1] "ggcall_code"</span></span>
 <span><span class="co"># attr(,"ggcall_env")</span></span>
-<span><span class="co"># &lt;environment: abcd1234&gt;</span></span></code></pre></div>
+<span><span class="co"># &lt;environment: abcd1234&gt;</span></span>
+<span></span>
+<span><span class="fu">styler</span><span class="fu">::</span><span class="fu"><a href="https://styler.r-lib.org/reference/style_text.html" class="external-link">style_text</a></span><span class="op">(</span><span class="fu">backports</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/backports/man/deparse1.html" class="external-link">deparse1</a></span><span class="op">(</span><span class="va">plot_call</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Optionally: add assignments to call</span></span>
+<span><span class="va">plot_call_with_assignments</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ggcall_add_assignments.html">ggcall_add_assignments</a></span><span class="op">(</span><span class="va">plot_call</span><span class="op">)</span></span>
+<span><span class="fu">styler</span><span class="fu">::</span><span class="fu"><a href="https://styler.r-lib.org/reference/style_text.html" class="external-link">style_text</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/deparse.html" class="external-link">deparse</a></span><span class="op">(</span><span class="va">plot_call_with_assignments</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Optionally: access call environment</span></span>
+<span><span class="co"># Access call environment and/or use it to evaluate the call</span></span>
+<span><span class="va">plot_call_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ggcall_env.html">ggcall_env</a></span><span class="op">(</span><span class="va">plot_call</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">plot_call_env</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Optionally: reevaulate the call</span></span>
+<span><span class="co"># Reproduce the plot by evaluating the code</span></span>
+<span><span class="fu"><a href="reference/eval_ggcall.html">eval_ggcall</a></span><span class="op">(</span><span class="va">plot_call</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/eval_ggcall.html">eval_ggcall</a></span><span class="op">(</span><span class="va">plot_call_with_assignments</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Optionally overwrite variables</span></span>
+<span><span class="fu"><a href="reference/eval_ggcall.html">eval_ggcall</a></span><span class="op">(</span><span class="va">plot_call</span>, mtcars <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="op">]</span>, x <span class="op">=</span> <span class="st">"disp"</span><span class="op">)</span></span></code></pre></div>
+<p>Functions Reference:</p>
+<table class="table">
+<colgroup>
+<col width="22%">
+<col width="77%">
+</colgroup>
+<thead><tr class="header">
+<th>Function</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>ggplot</code></td>
+<td><strong>Overrides the default <code>ggplot</code> function from the ggplot2 package, adding the capability to track the history of plot construction.</strong></td>
+</tr>
+<tr class="even">
+<td><code>+.gg</code></td>
+<td>
+<strong>Enhances the ‘+’ operator for ggplot objects to track</strong>the history of plot layers and modifications.</td>
+</tr>
+<tr class="odd">
+<td><code>ggcall</code></td>
+<td><strong>Extracts the complete history of a ggplot object’s construction, providing a way to reproduce or inspect the plot.</strong></td>
+</tr>
+<tr class="even">
+<td><code>ggcall_add_assignments</code></td>
+<td><strong>Modifies a <code><a href="reference/ggcall.html">ggcall()</a></code> object by adding variable assignments to it.</strong></td>
+</tr>
+<tr class="odd">
+<td><code>eval_ggcall</code></td>
+<td><strong>Evaluates an expression representing a ggplot construction code.</strong></td>
+</tr>
+<tr class="even">
+<td><code>ggcall_env</code></td>
+<td><strong>Extracts the environment in which the ggplot construction code was originally created.</strong></td>
+</tr>
+<tr class="odd">
+<td>
+<code>+</code>, <code>-</code>, <code>*</code>, <code>|</code>, <code>&amp;</code> and <code>/</code>
+</td>
+<td><strong>Overloaded patchwork operators</strong></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a>
