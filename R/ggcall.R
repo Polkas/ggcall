@@ -55,8 +55,8 @@ ggplot <- function(...) {
 
   if (inherits(e1, "ggcall")) {
     if (inherits(e2, "ggcall")) {
-      if (!"patchwork" %in% loadedNamespaces()) {
-        stop("patchwork package has to be library/require first.")
+      if (!requireNamespace("patchwork", quietly = TRUE)) {
+        stop("patchwork package has to be installed.")
       }
       newcall <- ggcall(e2)
     } else {

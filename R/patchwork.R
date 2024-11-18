@@ -1,7 +1,7 @@
 #' @keywords internal
 patch_operator_base <- function(e1, e2, operator, class) {
-  if (!"patchwork" %in% loadedNamespaces()) {
-    stop("patchwork package has to be library/require first.")
+  if (!requireNamespace("patchwork", quietly = TRUE)) {
+    stop("patchwork package has to be installed.")
   }
   plot <- utils::getFromNamespace(sprintf("%s.%s", operator, class), "patchwork")(e1, e2)
   if (inherits(e1, "ggcall") && inherits(e2, "ggcall")) {
