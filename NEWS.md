@@ -1,4 +1,4 @@
-# ggcall v0.3.0.9000
+# ggcall v0.3.0
 
 * Added support for ggplot related patchwork operators.
 * Updated `ggcall` attribute of `ggcall()` so it is a language object not a list of such.
