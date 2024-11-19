@@ -1,7 +1,7 @@
 Package: ggcall
 Type: Package
-Title: Extract ggplot2 Layers Created within a Function
-Version: 0.3.0.9000
+Title: Extract ggplot2 Layers Created Within a Function
+Version: 0.3.1
 Authors@R: 
     person(given = "Maciej",
            family = "Nasinski",
@@ -9,7 +9,7 @@ Authors@R:
            email = "nasinski.maciej@gmail.com")
 Maintainer: Maciej Nasinski <nasinski.maciej@gmail.com>
 Description: 
-    Enhance ggplot2 with the ability to extract the code used to create a ggplot object, even when it is generated within a function. 
+    Enhance ggplot2 with the ability to extract the code used to create a ggplot2 object, even when it is generated within a function. 
     This feature aids in understanding, replicating, and modifying complex ggplot2 visualizations produced in functional workflows.
 License: Apache License (>= 2)
 Encoding: UTF-8
