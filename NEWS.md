@@ -1,4 +1,4 @@
-# ggcall v0.3.1
+# ggcall v0.3.2
 
 * First CRAN release.
 
