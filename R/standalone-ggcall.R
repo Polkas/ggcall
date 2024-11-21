@@ -133,10 +133,11 @@ ggplot <- function(...) {
 #' plot_call <- ggcall(func(mtcars, "wt", "mpg"))
 #' # Optionally: Style the code with styler
 #' # deparse1 is recommended and available in R>=4.0.0
-#' styler::style_text(
-#'   paste(deparse(plot_call, 500), collapse = " ")
-#' )
-#'
+#' \dontrun{
+#'   styler::style_text(
+#'     paste(deparse(plot_call), collapse = "\n")
+#'   )
+#' }
 #' @export
 #'
 ggcall <- function(plot) {
@@ -188,10 +189,11 @@ ggcall <- function(plot) {
 #' plot_call <- ggcall(func(mtcars, "wt", "mpg"))
 #' # Optionally: Add assignments
 #' plot_call_with_assignments <- ggcall_add_assignments(plot_call)
-#' styler::style_text(
-#'   paste(deparse(plot_call_with_assignments), collapse = "\n")
-#' )
-#'
+#' \dontrun{
+#'   styler::style_text(
+#'     paste(deparse(plot_call_with_assignments), collapse = "\n")
+#'   )
+#' }
 #' eval_ggcall(plot_call_with_assignments)
 #'
 #' # Will Fail as data is needed and skipped

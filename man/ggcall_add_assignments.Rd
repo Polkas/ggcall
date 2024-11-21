@@ -51,10 +51,11 @@ func <- function(data, x, y, bool = TRUE) {
 plot_call <- ggcall(func(mtcars, "wt", "mpg"))
 # Optionally: Add assignments
 plot_call_with_assignments <- ggcall_add_assignments(plot_call)
-styler::style_text(
-  paste(deparse(plot_call_with_assignments), collapse = "\n")
-)
-
+\dontrun{
+  styler::style_text(
+    paste(deparse(plot_call_with_assignments), collapse = "\n")
+  )
+}
 eval_ggcall(plot_call_with_assignments)
 
 # Will Fail as data is needed and skipped
