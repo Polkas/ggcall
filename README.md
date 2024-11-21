@@ -71,7 +71,7 @@ eval_ggcall(gg_barbell)
 The ggcall can be implemented as a standalone solution.
 
 A "standalone" file implements a minimum set of functionality in such a way that it can be copied into another package. 
-`usethis::use_standalone()` makes it easy to get such a file into your own repo/package.
+`usethis::use_standalone()` makes it easy to get such a file into your own repo/package and later update it if needed.
 [Example of standalone file in another package, rlang](https://github.com/r-lib/rlang/blob/main/R/standalone-purrr.R)
 
 The `usethis` >= 2.2.0 is required.
@@ -80,7 +80,7 @@ The `usethis` >= 2.2.0 is required.
 install.packages("usethis")
 ```
 
-STANALONE - copy paste the files and add dependencies to your own package:
+STANDALONE means copy paste the files and add dependencies to your own package.
 
 Please create an R package if not having such yet.
 
@@ -88,30 +88,25 @@ Please create an R package if not having such yet.
 usethis::create_package()
 ```
 
-with `patchwork` support
+WITH `patchwork` support
 
 ```
-# Add ggplot2 (Depends), patchwork (Imports) and styler (Suggests) as your package dependencies
+# Add ggplot2, patchwork as your package dependencies
 # copy paste the ggcall.R file to your own package R directory
 # copy paste the patchwork.R file to your own package R directory
 
-usethis::use_package("ggplot2", type = "Depends")
-usethis::use_package("patchwork")
-usethis::use_package("styler", "Suggests")
 usethis::use_standalone("polkas/ggcall", "patchwork.R", ref = "v0.3.3")
-# you may need to update the files time to time, run usethis::use_standalone
+# you may need to update the files time to time with usethis::use_standalone
 ```
 
-without `patchwork` support
+WITHOUT `patchwork` support
 
 ```
-# Add ggplot2 (Depends) and styler (Suggests) as your package dependencies
+# Add ggplot2as your package dependencies
 # copy paste the ggcall.R file to your own package R directory
 
-usethis::use_package("ggplot2", type = "Depends")
-usethis::use_package("styler", "Suggests")
 usethis::use_standalone("polkas/ggcall", "ggcall.R", ref = "v0.3.3")
-# you may need to update the file time to time, run usethis::use_standalone
+# you may need to update the files time to time with usethis::use_standalone
 ```
 
 GENERAL COMMENTS:
@@ -125,6 +120,11 @@ GENERAL COMMENTS:
 ```
 # DO NOT import ggplot function from ggplot2
 #' @rawNamespace import(ggplot2, except = c(ggplot))
+```
+
+```
+# Combine ggcall +.gg operator with your own one if you already overwrited it in your package
+# e.g. GGally package requires such step
 ```
 
 ## Note
