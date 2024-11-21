@@ -185,34 +185,32 @@ eval_ggcall(plot_call_with_assignments)
 eval_ggcall(plot_call, mtcars = mtcars[1:10, ], x = "disp")
 ```
 
-## Implementation
+## Developers Implementation
 
-The ggcall can be implemented in a few ways.  
-One of them is to copy and paste one or two R files to your package R directory.  
-Another option is to use the ggcall as a DESCRIPTION file dependency for your package.
+The ggcall can be implemented in a few ways to your package, direct dependency or standalone.
 
-### General
+
+`usethis` package is optional but it truly simplify the process.
+The `usethis` >= 2.2.0 is required.
+
+```
+install.packages("usethis")
+```
+
+GENERAL COMMENTS:
 
 ```
 # Apply only if needed
-# Remove all ggplot2:: prefix-ing before ggplot function calls
+# In your own code remove all ggplot2:: prefix-ing before ggplot function calls
 # ggplot2::ggplot(...) -> ggplot(...)
 ```
 
-### OPTION 1
+DIRECT DEPENDENCY:
+
+An option is to use the ggcall as a DESCRIPTION file import dependency for your package.
 
 ```
-# copy paste the ggcall.R file to your own package
-# OPTIONAL copy paste the patchwork.R file if you need patchwork support
-# you may need to update the file time to time
-```
-
-### OPTION 2
-
-```
-# ADD ggcall to Depends or Imports section in DESCRIPTION file
-# If added to Depends then all ggcall functions will be preloaded when loading your own package
-# If added to Imports the end user will have to library(ggcall) to get the ggcall functionalities
+usethis::use_package("ggcall")
 ```
 
 ```
@@ -224,6 +222,34 @@ Another option is to use the ggcall as a DESCRIPTION file dependency for your pa
 # b. When importing specific ggplot2 functions
 # #' @importFrom ggplot2 geom_line
 # #' @importFrom ggcall ggplot
+```
+
+STANALONE - copy paste the files to your own project:
+
+with `patchwork` support
+
+```
+# copy paste the ggcall.R file to your own package R directory
+# copy paste the patchwork.R file to your own package R directory
+```
+
+```r
+usethis::use_package("ggplot2")
+usethis::use_package("patchwork")
+usethis::use_standalone("polkas/ggcall", "patchwork.R", ref = "v0.3.4")
+# you may need to update the file time to time
+```
+
+without `patchwork` support
+
+```
+# copy paste the ggcall.R file to your own package R directory
+```
+
+```
+usethis::use_package("ggplot2")
+usethis::use_standalone("polkas/ggcall", "ggcall.R", ref = "v0.3.3")
+# you may need to update the file time to time
 ```
 
 ### Example implementation in GGally package

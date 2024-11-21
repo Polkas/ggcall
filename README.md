@@ -20,13 +20,73 @@ Then, each template will generate the expected plot, and the ggplot2 code behind
 
 Please access the [Get Started vignette](https://polkas.github.io/ggcall/articles/ggcall.html) for more information.
 
-## Implementation
 
-The ggcall can be implemented in a few ways.  
-One of them is to copy and paste one or two R files to your package R directory.  
-Another option is to use the ggcall as a DESCRIPTION file dependency for your package.
+## Developers Implementation
 
-Please access the [Get Started vignette](https://polkas.github.io/ggcall/articles/ggcall.html) for more information.
+The ggcall can be implemented in a few ways to your package, direct dependency or standalone.
+
+
+`usethis` package is optional but it truly simplify the process.
+The `usethis` >= 2.2.0 is required.
+
+```
+install.packages("usethis")
+```
+
+GENERAL COMMENTS:
+
+```
+# Apply only if needed
+# In your own code remove all ggplot2:: prefix-ing before ggplot function calls
+# ggplot2::ggplot(...) -> ggplot(...)
+```
+
+DIRECT DEPENDENCY:
+
+An option is to use the ggcall as a DESCRIPTION file import dependency for your package.
+
+```
+usethis::use_package("ggcall")
+```
+
+```
+# DO NOT import ggplot function from ggplot2 instead import it from ggcall
+
+# a. When importing all ggplot2 functions
+# #' @rawNamespace import(ggplot2, except = c(ggplot))
+# #' @import ggcall
+# b. When importing specific ggplot2 functions
+# #' @importFrom ggplot2 geom_line
+# #' @importFrom ggcall ggplot
+```
+
+STANALONE - copy paste the files to your own project:
+
+with `patchwork` support
+
+```
+# copy paste the ggcall.R file to your own package R directory
+# copy paste the patchwork.R file to your own package R directory
+```
+
+```r
+usethis::use_package("ggplot2")
+usethis::use_package("patchwork")
+usethis::use_standalone("polkas/ggcall", "patchwork.R", ref = "v0.3.4")
+# you may need to update the file time to time
+```
+
+without `patchwork` support
+
+```
+# copy paste the ggcall.R file to your own package R directory
+```
+
+```
+usethis::use_package("ggplot2")
+usethis::use_standalone("polkas/ggcall", "ggcall.R", ref = "v0.3.3")
+# you may need to update the file time to time
+```
 
 ## Usage
 
