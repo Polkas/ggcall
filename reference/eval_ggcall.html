@@ -19,21 +19,24 @@ of the expression, ensuring that the plot is reconstructed in the correct contex
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggcall</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-  <a href="../articles/ggcall.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/Polkas/ggcall/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -43,7 +46,7 @@ of the expression, ensuring that the plot is reconstructed in the correct contex
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Evaluate ggcall</h1>
-
+    <small class="dont-index">Source: <a href="https://github.com/Polkas/ggcall/blob/main/R/standalone-ggcall.R" class="external-link"><code>R/standalone-ggcall.R</code></a></small>
     <div class="hidden name"><code>eval_ggcall.Rd</code></div>
     </div>
 
@@ -79,9 +82,14 @@ the plot was originally created.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">wt</span>, y <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">plot_call</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggcall.html">ggcall</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span>, exclude <span class="op">=</span> <span class="st">"ggplot"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">func</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">wt</span>, y <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">gplot</span> <span class="op">&lt;-</span> <span class="fu">func</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">plot_call</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggcall.html">ggcall</a></span><span class="op">(</span><span class="va">gplot</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">reconstructed_plot</span> <span class="op">&lt;-</span> <span class="fu">eval_ggcall</span><span class="op">(</span><span class="va">plot_call</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">reconstructed_plot</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="eval_ggcall-1.png" alt="" width="700" height="433"></span>
