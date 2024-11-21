@@ -1,7 +1,7 @@
 # ggcall v0.3.3
 
-* First CRAN release.
-* Support usethis standalone, usethis::use_standalone can be used on ggcall to not depend on the ggcall package rather copy paste file to your package.
+* Support usethis standalone, `usethis::use_standalone` can be used with ggcall.
+* Added a reference to `ggcall.example` package, an example implementation of ggcall.
 
 # ggcall v0.3.0
 
