@@ -4,7 +4,7 @@
 # last-updated: 2024-11-21
 # license: https://unlicense.org
 # dependencies: ggcall.R
-# depends:ggplot2
+# depends: ggplot2
 # imports: patchwork
 # ---
 #
