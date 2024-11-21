@@ -22,7 +22,8 @@ fun <- function(data, x, y) {
   ggplot(data, aes(x = !!as.name(x), y = !!as.name(y))) +
     geom_point()
 }
-plot_call <- ggcall(fun(mtcars, "wt", "mpg"))
+gplot <- fun(mtcars, "wt", "mpg")
+plot_call <- ggcall(gplot)
 env <- ggcall_env(plot_call)
 ls(env)
 env[["data"]]

@@ -57,5 +57,7 @@ styler::style_text(
 eval_ggcall(plot_call_with_assignments)
 
 # Will Fail as data is needed and skipped
-# eval_ggcall(ggcall_add_assignments(plot_call, vars = c("x", "y")))
+\dontrun{
+  eval_ggcall(ggcall_add_assignments(plot_call, vars = c("x", "y")))
+}
 }

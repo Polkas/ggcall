@@ -21,14 +21,14 @@ Then, each template will generate the expected plot, and the ggplot2 code behind
 Please access the [Get Started vignette](https://polkas.github.io/ggcall/articles/ggcall.html) for more information.
 
 
-## Developers Implementation
+## Implementation
 
-The ggcall can be implemented in a few ways to your package, direct dependency or standalone.
+The ggcall can be implemented as a standalone solution.
 
 A "standalone" file implements a minimum set of functionality in such a way that it can be copied into another package. 
 `usethis::use_standalone()` makes it easy to get such a file into your own repo/package.
+[Example of standalone file in another package, rlang](https://github.com/r-lib/rlang/blob/main/R/standalone-purrr.R)
 
-`usethis` package is optional but it truly simplify the process.
 The `usethis` >= 2.2.0 is required.
 
 ```
@@ -44,22 +44,8 @@ GENERAL COMMENTS:
 ```
 
 ```
-# DO NOT import ggplot function from ggplot2 instead import it from ggcall
-
-# a. When importing all ggplot2 functions
-# #' @rawNamespace import(ggplot2, except = c(ggplot))
-# #' @import ggcall
-# b. When importing specific ggplot2 functions
-# #' @importFrom ggplot2 geom_line
-# #' @importFrom ggcall ggplot
-```
-
-DIRECT DEPENDENCY:
-
-An option is to use the ggcall as a DESCRIPTION file import dependency for your package.
-
-```
-usethis::use_package("ggcall")
+# DO NOT import ggplot function from ggplot2
+#' @rawNamespace import(ggplot2, except = c(ggplot))
 ```
 
 STANALONE - copy paste the files to your own project:
@@ -67,30 +53,31 @@ STANALONE - copy paste the files to your own project:
 with `patchwork` support
 
 ```
-# Add ggplot2 and patchwork as your package dependencies
+# Add ggplot2 (Depends), patchwork (Imports) and styler (Suggests) as your package dependencies
 # copy paste the ggcall.R file to your own package R directory
 # copy paste the patchwork.R file to your own package R directory
 ```
 
 ```r
-usethis::use_package("ggplot2")
+usethis::use_package("ggplot2", type = "Depends")
 usethis::use_package("patchwork")
 usethis::use_package("styler", "Suggests")
-usethis::use_standalone("polkas/ggcall", "patchwork.R", ref = "v0.3.4")
-# you may need to update the file time to time
+usethis::use_standalone("polkas/ggcall", "patchwork.R", ref = "v0.3.3")
+# you may need to update the files time to time, run usethis::use_standalone
 ```
 
 without `patchwork` support
 
 ```
+# Add ggplot2 (Depends) and styler (Suggests) as your package dependencies
 # copy paste the ggcall.R file to your own package R directory
 ```
 
 ```
-usethis::use_package("ggplot2")
+usethis::use_package("ggplot2", type = "Depends")
 usethis::use_package("styler", "Suggests")
 usethis::use_standalone("polkas/ggcall", "ggcall.R", ref = "v0.3.3")
-# you may need to update the file time to time
+# you may need to update the file time to time, run usethis::use_standalone
 ```
 
 ## Usage

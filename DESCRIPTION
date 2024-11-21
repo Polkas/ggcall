@@ -16,12 +16,13 @@ BugReports: https://github.com/Polkas/ggcall/issues
 License: Apache License (>= 2)
 Encoding: UTF-8
 LazyData: true
-Depends: 
+Depends:
     ggplot2
+Imports: 
+    patchwork
 Suggests: 
     knitr,
     usethis,
-    patchwork,
     rmarkdown,
     styler,
     testthat (>= 3.0.0)

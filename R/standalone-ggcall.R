@@ -190,7 +190,9 @@ ggcall <- function(plot) {
 #' eval_ggcall(plot_call_with_assignments)
 #'
 #' # Will Fail as data is needed and skipped
-#' # eval_ggcall(ggcall_add_assignments(plot_call, vars = c("x", "y")))
+#' \dontrun{
+#'   eval_ggcall(ggcall_add_assignments(plot_call, vars = c("x", "y")))
+#' }
 #' @export
 ggcall_add_assignments <- function(call, vars = extract_names(call)) {
   stopifnot(inherits(call, "ggcall_code"))
@@ -282,7 +284,8 @@ eval_ggcall <- function(call, ...) {
 #'   ggplot(data, aes(x = !!as.name(x), y = !!as.name(y))) +
 #'     geom_point()
 #' }
-#' plot_call <- ggcall(fun(mtcars, "wt", "mpg"))
+#' gplot <- fun(mtcars, "wt", "mpg")
+#' plot_call <- ggcall(gplot)
 #' env <- ggcall_env(plot_call)
 #' ls(env)
 #' env[["data"]]
