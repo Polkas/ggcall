@@ -116,8 +116,8 @@ GENERAL COMMENTS:
 ```
 
 ```
-consider moving the ggplot2 from DESCRIPTION Imports to Depends 
-if your users will benefit from extending results with further layers
+# Consider moving the ggplot2 from DESCRIPTION Imports to Depends 
+# if your users will benefit from extending results with further layers
 ```
 
 ## Note
