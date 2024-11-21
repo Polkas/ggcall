@@ -3,7 +3,7 @@
 # file: ggcall.R
 # last-updated: 2024-11-21
 # license: https://unlicense.org
-# imports: ggplot2
+# depends: ggplot2
 # ---
 #
 # This file provides a minimal shim to provide a ggcall functionality on top of
