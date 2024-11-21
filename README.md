@@ -75,6 +75,7 @@ with `patchwork` support
 ```r
 usethis::use_package("ggplot2")
 usethis::use_package("patchwork")
+usethis::use_package("styler", "Suggests")
 usethis::use_standalone("polkas/ggcall", "patchwork.R", ref = "v0.3.4")
 # you may need to update the file time to time
 ```
@@ -87,6 +88,7 @@ without `patchwork` support
 
 ```
 usethis::use_package("ggplot2")
+usethis::use_package("styler", "Suggests")
 usethis::use_standalone("polkas/ggcall", "ggcall.R", ref = "v0.3.3")
 # you may need to update the file time to time
 ```
