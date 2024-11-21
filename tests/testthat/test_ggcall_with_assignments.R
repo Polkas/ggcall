@@ -26,7 +26,10 @@ test_that("ggcall_add_assignments correctly adds assignments", {
   expect_true(grepl("data <-", paste(deparse(result_call), collapse = "\n")))
   expect_true(grepl("x <-", paste(deparse(result_call), collapse = "\n")))
   expect_true(grepl("y <-", paste(deparse(result_call), collapse = "\n")))
-  expect_true(grepl('data <- ggcall_env\\(plot_call\\)\\[\\[\\"data\\"\\]\\]', paste(deparse(result_call), collapse = "\n")))
+  expect_true(
+    grepl('data <- ggcall_env\\(plot_call\\)\\[\\[\\"data\\"\\]\\]',
+          paste(deparse(result_call), collapse = "\n"))
+  )
   expect_true(grepl('x <- \\"wt\\"', paste(deparse(result_call), collapse = "\n")))
   expect_true(grepl('y <- \\"mpg\\"', paste(deparse(result_call), collapse = "\n")))
   expect_true(grepl("ggplot\\(data", paste(deparse(result_call), collapse = "\n")))
