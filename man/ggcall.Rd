@@ -19,6 +19,7 @@ providing a way to reproduce or inspect the plot. Designed to work
 with ggplot objects of class 'ggcall'.
 }
 \examples{
+library(ggplot2, exclude = "ggplot")
 # Example: Create a function which combines a few ggplot layers
 # Typically, it will be a function from your R package where you implemented ggcall
 func <- function(data, x, y, bool = TRUE) {

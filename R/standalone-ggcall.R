@@ -3,7 +3,7 @@
 # file: ggcall.R
 # last-updated: 2024-11-21
 # license: https://unlicense.org
-# depends: ggplot2
+# imports: ggplot2
 # ---
 #
 # This file provides a minimal shim to provide a ggcall functionality on top of
@@ -28,6 +28,7 @@
 #' @seealso \code{\link[ggplot2]{ggplot}}
 #' @rawNamespace import(ggplot2, except = c(ggplot))
 #' @examples
+#' library(ggplot2, exclude = "ggplot")
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg))
 #' # the + function has to come from ggcall package
 #' attr(p + geom_point(), "ggcall")
@@ -54,10 +55,12 @@ ggplot <- function(...) {
 #' conjunction with the enhanced ggplot function provided by this package.
 #'
 #' @param e1 A ggplot object of class 'ggcall'.
-#' @param e2 A layer or theme to add to the ggplot object.
+#' @param e2 A layer, theme or ggcall to add.
 #'
 #' @return A modified ggplot object with updated plot history.
+#' @rdname ggcall-add-operator
 #' @examples
+#' library(ggplot2, exclude = "ggplot")
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
 #'   geom_point()
 #' attr(p, "ggcall") # View the plot call
@@ -108,6 +111,7 @@ ggplot <- function(...) {
 #' a list representing the history of the ggplot object.
 #'
 #' @examples
+#' library(ggplot2, exclude = "ggplot")
 #' # Example: Create a function which combines a few ggplot layers
 #' # Typically, it will be a function from your R package where you implemented ggcall
 #' func <- function(data, x, y, bool = TRUE) {
@@ -162,6 +166,7 @@ ggcall <- function(plot) {
 #' More complex variables are referenced to ggcall environment.
 #'
 #' @examples
+#' library(ggplot2, exclude = "ggplot")
 #' # Example: Create a function which combines a few ggplot layers
 #' # Typically, it will be a function from your R package where you implemented ggcall
 #' func <- function(data, x, y, bool = TRUE) {
@@ -253,9 +258,14 @@ ggcall_add_assignments <- function(call, vars = extract_names(call)) {
 #' @return The resulting ggplot object produced by evaluating the expression `x`.
 #'
 #' @examples
-#' p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
-#'   geom_point()
-#' plot_call <- ggcall(p)
+#' library(ggplot2, exclude = "ggplot")
+#'
+#' func <- function() {
+#'   ggplot(mtcars, aes(x = wt, y = mpg)) +
+#'     geom_point()
+#' }
+#' gplot <- func()
+#' plot_call <- ggcall(gplot)
 #' reconstructed_plot <- eval_ggcall(plot_call)
 #' print(reconstructed_plot)
 #'
@@ -280,6 +290,7 @@ eval_ggcall <- function(call, ...) {
 #' @param call An expression representing the ggplot construction code.
 #' @return The environment in which the ggplot construction code was created.
 #' @examples
+#' library(ggplot2, exclude = "ggplot")
 #' fun <- function(data, x, y) {
 #'   ggplot(data, aes(x = !!as.name(x), y = !!as.name(y))) +
 #'     geom_point()

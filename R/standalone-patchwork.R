@@ -4,8 +4,7 @@
 # last-updated: 2024-11-21
 # license: https://unlicense.org
 # dependencies: ggcall.R
-# depends: ggplot2
-# imports: patchwork
+# imports: [ggplot2, patchwork]
 # ---
 #
 # This file provides a minimal shim to provide a ggcall functionality on top of

@@ -9,7 +9,7 @@
 \arguments{
 \item{e1}{A ggplot object of class 'ggcall'.}
 
-\item{e2}{A layer or theme to add to the ggplot object.}
+\item{e2}{A layer, theme or ggcall to add.}
 }
 \value{
 A modified ggplot object with updated plot history.
@@ -20,6 +20,7 @@ plot layers and modifications. This function is meant to be used in
 conjunction with the enhanced ggplot function provided by this package.
 }
 \examples{
+library(ggplot2, exclude = "ggplot")
 p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point()
 attr(p, "ggcall") # View the plot call

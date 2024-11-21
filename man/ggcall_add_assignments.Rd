@@ -29,6 +29,7 @@ Currently only atomic variables are supported to be assign directly.
 More complex variables are referenced to ggcall environment.
 }
 \examples{
+library(ggplot2, exclude = "ggplot")
 # Example: Create a function which combines a few ggplot layers
 # Typically, it will be a function from your R package where you implemented ggcall
 func <- function(data, x, y, bool = TRUE) {
@@ -58,6 +59,6 @@ eval_ggcall(plot_call_with_assignments)
 
 # Will Fail as data is needed and skipped
 \dontrun{
-  eval_ggcall(ggcall_add_assignments(plot_call, vars = c("x", "y")))
+eval_ggcall(ggcall_add_assignments(plot_call, vars = c("x", "y")))
 }
 }
