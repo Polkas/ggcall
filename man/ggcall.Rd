@@ -42,8 +42,8 @@ plot_call <- ggcall(func(mtcars, "wt", "mpg"))
 # Optionally: Style the code with styler
 # deparse1 is recommended and available in R>=4.0.0
 \dontrun{
-  styler::style_text(
-    paste(deparse(plot_call), collapse = "\n")
-  )
+styler::style_text(
+  paste(deparse(plot_call), collapse = "\n")
+)
 }
 }

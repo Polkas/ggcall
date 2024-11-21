@@ -52,9 +52,9 @@ plot_call <- ggcall(func(mtcars, "wt", "mpg"))
 # Optionally: Add assignments
 plot_call_with_assignments <- ggcall_add_assignments(plot_call)
 \dontrun{
-  styler::style_text(
-    paste(deparse(plot_call_with_assignments), collapse = "\n")
-  )
+styler::style_text(
+  paste(deparse(plot_call_with_assignments), collapse = "\n")
+)
 }
 eval_ggcall(plot_call_with_assignments)
 

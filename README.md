@@ -18,10 +18,9 @@ Then, each template will generate the expected plot, and the ggplot2 code behind
 
 ## Example
 
+[The ggcall_example repository](https://github.com/Polkas/ggcall_example) contains a simple implementation of ggcall.
 `forest_plot`  and `barbell` functions are a part of `ggcall.example` package.
 Typically, it will be a function returning `ggplot2` object from your own R package where you implemented `ggcall`.
-
-[the ggcall_example repository](https://github.com/Polkas/ggcall_example) contains a simple implementation of ggcall.
 
 ```r
 remotes::install_github("https://github.com/Polkas/ggcall_example")
@@ -53,18 +52,6 @@ styler::style_text(paste(deparse(ggcall_add_assignments(call_forest)), collapse 
 
 # Optionally: reevaulate the call
 eval_ggcall(call_forest)
-
-df <- data.frame(
-  Category = c("A", "B", "C", "D"),
-  Before = c(3.5, 4.2, 2.8, 5.1),
-  After = c(4.0, 4.5, 3.1, 5.5)
-)
-
-gg_barbell <- barbell_plot(df, "Category", "Before", "After", group_labels = c("Before", "After"))
-
-call_barbell <- ggcall(gg_barbell)
-
-eval_ggcall(gg_barbell)
 ```
 
 ## Implementation in Your Own Package
@@ -126,6 +113,11 @@ GENERAL COMMENTS:
 ```
 # Combine ggcall +.gg operator with your own one if you already overwrited it in your package
 # e.g. GGally package requires such step
+```
+
+```
+consider moving the ggplot2 from DESCRIPTION Imports to Depends 
+if your users will benefit from extending results with further layers
 ```
 
 ## Note
