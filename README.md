@@ -18,13 +18,14 @@ Then, each template will generate the expected plot, and the ggplot2 code behind
 
 ## Example
 
-`forest_plot`  and `barbell` functions are a part of `ggcall` package.
+`forest_plot`  and `barbell` functions are a part of `ggcall.example` package.
 Typically, it will be a function returning `ggplot2` object from your own R package where you implemented `ggcall`.
 
+[the ggcall_example repository](https://github.com/Polkas/ggcall_example) contains a simple implementation of ggcall.
 
 ```r
-remotes::install_github("https://github.com/Polkas/ggcall")
-library(ggcall)
+remotes::install_github("https://github.com/Polkas/ggcall_example")
+library(ggcall.example)
 
 # Print the body of the function
 forest_plot
