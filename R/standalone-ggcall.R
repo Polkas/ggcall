@@ -191,7 +191,7 @@ ggcall <- function(plot) {
 #'
 #' # Will Fail as data is needed and skipped
 #' \dontrun{
-#'   eval_ggcall(ggcall_add_assignments(plot_call, vars = c("x", "y")))
+#' eval_ggcall(ggcall_add_assignments(plot_call, vars = c("x", "y")))
 #' }
 #' @export
 ggcall_add_assignments <- function(call, vars = extract_names(call)) {

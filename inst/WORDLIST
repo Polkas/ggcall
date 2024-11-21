@@ -19,6 +19,7 @@ eamodio
 env
 forwardPorts
 FRONTEND
+gg
 ggally
 GGally
 ggcall
@@ -82,6 +83,7 @@ remoteUser
 repo
 Reproducibility
 reproducibility
+rlang
 rmarkdown
 RoxygenNote
 rsync
