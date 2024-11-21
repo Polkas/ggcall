@@ -2,6 +2,7 @@ ARG
 aut
 backports
 bracketedPaste
+BugReports
 codecov
 coenraads
 colorizer
@@ -25,6 +26,7 @@ ggcall’s
 ggpairs
 ggplot
 Github
+github
 gitlens
 gmail
 gnupg
@@ -32,6 +34,7 @@ htop
 https
 ikuyadeu
 init
+io
 iproute
 jq
 json
@@ -97,6 +100,7 @@ sudo
 SYS
 testthat
 Uncomment
+usethis
 usr
 ust
 ver
