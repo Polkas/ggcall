@@ -89,6 +89,7 @@ runArgs
 sdras
 seccomp
 setuptools
+STANALONE
 strace
 streetsidesoftware
 Styleguide
