@@ -15,7 +15,6 @@ test_that("barbell_plot works with valid input", {
   expected_categories <- unique(df$Category)
   actual_categories <- levels(plot$data$Category)
   expect_equal(actual_categories, expected_categories)
-
 })
 
 test_that("barbell_plot handles missing columns appropriately", {
@@ -33,7 +32,7 @@ test_that("barbell_plot handles missing columns appropriately", {
 test_that("barbell_plot checks for numeric value columns", {
   df_non_numeric <- data.frame(
     Category = c("A", "B", "C", "D"),
-    Before = c("3.5", "4.2", "2.8", "5.1"),  # Non-numeric
+    Before = c("3.5", "4.2", "2.8", "5.1"), # Non-numeric
     After = c(4.0, 4.5, 3.1, 5.5)
   )
 
@@ -77,7 +76,6 @@ test_that("barbell_plot works with custom axis labels and title", {
 
   expect_equal(plot$labels$x, "Score")
   expect_equal(plot$labels$title, "Comparison Over Time")
-
 })
 
 
@@ -112,8 +110,10 @@ test_that("forest_plot ggcall", {
           scale_color_manual(values = c("#00BFC4", "#F8766D"), name = "") +
           labs(x = xlab, y = "", title = barbell_title) +
           theme_minimal() +
-          theme(axis.text.y = element_text(size = 10), plot.title = element_text(hjust = 0.5, face = "bold"),
-                legend.position = "bottom")
+          theme(
+            axis.text.y = element_text(size = 10), plot.title = element_text(hjust = 0.5, face = "bold"),
+            legend.position = "bottom"
+          )
       )
     ),
     collapse = "\n"
@@ -123,5 +123,3 @@ test_that("forest_plot ggcall", {
     expected
   )
 })
-
-

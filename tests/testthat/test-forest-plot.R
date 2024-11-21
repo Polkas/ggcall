@@ -57,7 +57,7 @@ test_that("forest_plot works with custom axis labels and title", {
 test_that("forest_plot handles non-numeric data gracefully", {
   df_non_numeric <- data.frame(
     Treatment = c("Treatment A", "Treatment B", "Treatment C"),
-    Estimate = c("0.2", "0.5", "-0.1"),  # Estimates as strings
+    Estimate = c("0.2", "0.5", "-0.1"), # Estimates as strings
     CI_lower = c(0.1, 0.3, -0.3),
     CI_upper = c(0.3, 0.7, 0.1)
   )
@@ -119,4 +119,3 @@ test_that("forest_plot ggcall", {
     expected
   )
 })
-

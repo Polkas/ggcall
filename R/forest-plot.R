@@ -22,7 +22,6 @@
 #' @export
 forest_plot <- function(forest_data, estimate_col, ci_lower_col, ci_upper_col, label_col,
                         xlab = "Estimate", title = "Forest Plot") {
-
   required_cols <- c(estimate_col, ci_lower_col, ci_upper_col, label_col)
   missing_cols <- setdiff(required_cols, names(forest_data))
   if (length(missing_cols) > 0) {

@@ -22,7 +22,6 @@
 barbell_plot <- function(barbell_data, category_col, value1_col, value2_col,
                          group_labels = c("Value 1", "Value 2"),
                          xlab = "Value", title = "Barbell Plot") {
-
   required_cols <- c(category_col, value1_col, value2_col)
   missing_cols <- setdiff(required_cols, names(barbell_data))
   if (length(missing_cols) > 0) {
