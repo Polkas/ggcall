@@ -11,13 +11,14 @@ Maintainer: Maciej Nasinski <nasinski.maciej@gmail.com>
 Description: 
     Enhance 'ggplot2' with the ability to extract the code used to create a 'ggplot2' object, even when it is generated within a function. 
     This feature aids in understanding, replicating, and modifying complex 'ggplot2' visualizations produced in functional workflows.
+URL: https://github.com/Polkas/ggcall, https://polkas.github.io/ggcall/
+BugReports: https://github.com/Polkas/ggcall/issues
 License: Apache License (>= 2)
 Encoding: UTF-8
 LazyData: true
 Depends: 
     ggplot2
 Suggests: 
-    backports,
     knitr,
     patchwork,
     rmarkdown,

@@ -73,7 +73,11 @@ plot_call
 # attr(,"ggcall_env")
 # <environment: abcd1234>
 
-styler::style_text(backports:::deparse1(plot_call))
+# Optionally: Style the code with styler
+# install.packages("styler")
+styler::style_text(
+  paste(deparse(plot_call), collapse = "\n")
+)
 
 # Optionally: add assignments to call
 plot_call_with_assignments <- ggcall_add_assignments(plot_call)

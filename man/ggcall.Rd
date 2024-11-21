@@ -39,6 +39,9 @@ func <- function(data, x, y, bool = TRUE) {
 }
 plot_call <- ggcall(func(mtcars, "wt", "mpg"))
 # Optionally: Style the code with styler
-styler::style_text(backports:::deparse1(plot_call))
+# deparse1 is recommended and available in R>=4.0.0
+styler::style_text(
+  paste(deparse(plot_call, 500), collapse = " ")
+)
 
 }

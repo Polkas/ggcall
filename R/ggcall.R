@@ -1,3 +1,19 @@
+# ---
+# repo: polkas/ggcall
+# file: ggcall.R
+# last-updated: 2024-11-21
+# license: https://unlicense.org
+# imports: ggplot2
+# ---
+#
+# This file provides a minimal shim to provide a ggcall functionality on top of
+# ggplot2.
+#
+# ## Changelog
+#
+
+# nocov start
+
 #' Enhanced `ggplot` Function with History Tracking
 #'
 #' Overrides the default `ggplot` function from the ggplot2 package, adding the
@@ -112,7 +128,10 @@ ggplot <- function(...) {
 #' }
 #' plot_call <- ggcall(func(mtcars, "wt", "mpg"))
 #' # Optionally: Style the code with styler
-#' styler::style_text(backports:::deparse1(plot_call))
+#' # deparse1 is recommended and available in R>=4.0.0
+#' styler::style_text(
+#'   paste(deparse(plot_call, 500), collapse = " ")
+#' )
 #'
 #' @export
 #'
@@ -309,3 +328,5 @@ extract_names <- function(expr) {
 
   return(character())
 }
+
+# nocov end

@@ -1,3 +1,20 @@
+# ---
+# repo: polkas/ggcall
+# file: patchwork
+# last-updated: 2024-11-21
+# license: https://unlicense.org
+# dependencies: ggcall.R
+# imports: [ggplot2, patchwork]
+# ---
+#
+# This file provides a minimal shim to provide a ggcall functionality on top of
+# ggplot2. Additionally patchwork operators are supported.
+#
+# ## Changelog
+#
+
+# nocov start
+
 #' @keywords internal
 patch_operator_base <- function(e1, e2, operator, class) {
   if (!requireNamespace("patchwork", quietly = TRUE)) {
@@ -38,3 +55,5 @@ patch_operator_base <- function(e1, e2, operator, class) {
 "&.ggcall" <- function(e1, e2) {
   patch_operator_base(e1, e2, "&", "gg")
 }
+
+# nocov end
