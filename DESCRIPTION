@@ -1,7 +1,7 @@
 Package: ggcall
 Type: Package
-Title: Extract ggplot2 Layers Created within a Function
-Version: 0.3.0
+Title: Extract 'ggplot2' Layers Created Within a Function
+Version: 0.3.3
 Authors@R: 
     person(given = "Maciej",
            family = "Nasinski",
@@ -9,20 +9,20 @@ Authors@R:
            email = "nasinski.maciej@gmail.com")
 Maintainer: Maciej Nasinski <nasinski.maciej@gmail.com>
 Description: 
-    Enhance ggplot2 with the ability to extract the code used to create a ggplot object, even when it is generated within a function. 
-    This feature aids in understanding, replicating, and modifying complex ggplot2 visualizations produced in functional workflows.
+    Enhance 'ggplot2' with the ability to extract the code used to create a 'ggplot2' object, even when it is generated within a function. 
+    This feature aids in understanding, replicating, and modifying complex 'ggplot2' visualizations produced in functional workflows.
+URL: https://github.com/Polkas/ggcall, https://polkas.github.io/ggcall/
+BugReports: https://github.com/Polkas/ggcall/issues
 License: Apache License (>= 2)
 Encoding: UTF-8
 LazyData: true
-Depends: 
+Depends:
     ggplot2
+Imports:
+    patchwork
 Suggests: 
-    backports,
-    knitr,
-    patchwork,
-    rmarkdown,
+    usethis,
     styler,
     testthat (>= 3.0.0)
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
-VignetteBuilder: knitr

@@ -39,7 +39,10 @@ test_that("ggcall incorrect input", {
 test_that("ggcall returns correct call", {
   plot_call1 <- ggcall(func("wt", "mpg"))
   plot_call2 <- ggcall(funy())
-  testthat::expect_identical(backports:::deparse1(plot_call1), backports:::deparse1(plot_call2))
+  testthat::expect_identical(
+    paste(deparse(plot_call1), collapse = "\n"),
+    paste(deparse(plot_call2), collapse = "\n")
+  )
 })
 
 # nolint start

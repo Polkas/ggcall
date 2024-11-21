@@ -23,21 +23,26 @@ test_that("ggcall_add_assignments correctly adds assignments", {
   result_call <- ggcall_add_assignments(plot_call)
 
   expect_true(inherits(result_call, "ggcall_code"))
-  expect_true(grepl("data <-", backports:::deparse1(result_call)))
-  expect_true(grepl("x <-", backports:::deparse1(result_call)))
-  expect_true(grepl("y <-", backports:::deparse1(result_call)))
-  expect_true(grepl('data <- ggcall_env\\(plot_call\\)\\[\\[\\"data\\"\\]\\]', backports:::deparse1(result_call)))
-  expect_true(grepl('x <- \\"wt\\"', backports:::deparse1(result_call)))
-  expect_true(grepl('y <- \\"mpg\\"', backports:::deparse1(result_call)))
-  expect_true(grepl("ggplot\\(data", backports:::deparse1(result_call)))
+  expect_true(grepl("data <-", paste(deparse(result_call), collapse = "\n")))
+  expect_true(grepl("x <-", paste(deparse(result_call), collapse = "\n")))
+  expect_true(grepl("y <-", paste(deparse(result_call), collapse = "\n")))
+  expect_true(
+    grepl(
+      'data <- ggcall_env\\(plot_call\\)\\[\\[\\"data\\"\\]\\]',
+      paste(deparse(result_call), collapse = "\n")
+    )
+  )
+  expect_true(grepl('x <- \\"wt\\"', paste(deparse(result_call), collapse = "\n")))
+  expect_true(grepl('y <- \\"mpg\\"', paste(deparse(result_call), collapse = "\n")))
+  expect_true(grepl("ggplot\\(data", paste(deparse(result_call), collapse = "\n")))
   expect_silent(eval(result_call))
 })
 
 
 test_that("ggcall_add_assignments incorrectly adds assignments", {
   result_call <- ggcall_add_assignments(plot_call, vars = "x")
-  expect_true(grepl("x <-", backports:::deparse1(result_call)))
-  expect_false(grepl("data <-", backports:::deparse1(result_call)))
+  expect_true(grepl("x <-", paste(deparse(result_call), collapse = "\n")))
+  expect_false(grepl("data <-", paste(deparse(result_call), collapse = "\n")))
   expect_error(eval(result_call))
 })
 

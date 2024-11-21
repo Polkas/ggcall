@@ -1,3 +1,8 @@
+# ggcall v0.3.3
+
+* Added support for usethis standalone, `usethis::use_standalone` can be used with ggcall.
+* Added a reference to `ggcall.example` package, an example implementation of ggcall.
+
 # ggcall v0.3.0
 
 * Added support for ggplot related patchwork operators.
