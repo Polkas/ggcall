@@ -25,6 +25,8 @@ Please access the [Get Started vignette](https://polkas.github.io/ggcall/article
 
 The ggcall can be implemented in a few ways to your package, direct dependency or standalone.
 
+A "standalone" file implements a minimum set of functionality in such a way that it can be copied into another package. 
+`usethis::use_standalone()` makes it easy to get such a file into your own repo/package.
 
 `usethis` package is optional but it truly simplify the process.
 The `usethis` >= 2.2.0 is required.
@@ -41,14 +43,6 @@ GENERAL COMMENTS:
 # ggplot2::ggplot(...) -> ggplot(...)
 ```
 
-DIRECT DEPENDENCY:
-
-An option is to use the ggcall as a DESCRIPTION file import dependency for your package.
-
-```
-usethis::use_package("ggcall")
-```
-
 ```
 # DO NOT import ggplot function from ggplot2 instead import it from ggcall
 
@@ -58,6 +52,14 @@ usethis::use_package("ggcall")
 # b. When importing specific ggplot2 functions
 # #' @importFrom ggplot2 geom_line
 # #' @importFrom ggcall ggplot
+```
+
+DIRECT DEPENDENCY:
+
+An option is to use the ggcall as a DESCRIPTION file import dependency for your package.
+
+```
+usethis::use_package("ggcall")
 ```
 
 STANALONE - copy paste the files to your own project:
