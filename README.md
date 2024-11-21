@@ -67,6 +67,7 @@ STANALONE - copy paste the files to your own project:
 with `patchwork` support
 
 ```
+# Add ggplot2 and patchwork as your package dependencies
 # copy paste the ggcall.R file to your own package R directory
 # copy paste the patchwork.R file to your own package R directory
 ```

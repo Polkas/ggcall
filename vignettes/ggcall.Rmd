@@ -191,7 +191,7 @@ The ggcall can be implemented in a few ways to your package, direct dependency o
 
 
 `usethis` package is optional but it truly simplify the process.
-The `usethis` >= 2.2.0 is required.
+The `usethis` >= 2.2.0 is required to use `usethis::use_standalone`.
 
 ```
 install.packages("usethis")
@@ -236,7 +236,7 @@ with `patchwork` support
 ```r
 usethis::use_package("ggplot2")
 usethis::use_package("patchwork")
-usethis::use_standalone("polkas/ggcall", "patchwork.R", ref = "v0.3.4")
+usethis::use_standalone("polkas/ggcall", "patchwork.R", ref = "v0.3.3")
 # you may need to update the file time to time
 ```
 

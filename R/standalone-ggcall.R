@@ -26,7 +26,7 @@
 #' attribute 'ggcall' that stores the history of plot construction.
 #'
 #' @seealso \code{\link[ggplot2]{ggplot}}
-#' @importFrom ggplot2 ggplot
+#' @rawNamespace import(ggplot2, except = c(ggplot))
 #' @examples
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg))
 #' # the + function has to come from ggcall package
