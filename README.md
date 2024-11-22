@@ -15,56 +15,20 @@ among others, providing mathematical operators for combining multiple plots.
 
 An excellent implementation example is to create a bunch of ggplot templates, and we want them to be functions.
 Then, each template will generate the expected plot, and the ggplot2 code behind is easy to get.
-
-## Example
-
-[The ggcall_example repository](https://github.com/Polkas/ggcall_example) contains a simple implementation of ggcall.
-`forest_plot`  and `barbell` functions are a part of `ggcall.example` package.
-Typically, it will be a function returning `ggplot2` object from your own R package where you implemented `ggcall`.
-
-```r
-remotes::install_github("https://github.com/Polkas/ggcall_example")
-library(ggcall.example)
-
-# Print the body of the function
-forest_plot
-
-df <- data.frame(
-  Treatment = c("Treatment A", "Treatment B", "Treatment C"),
-  Estimate = c(0.2, 0.5, -0.1),
-  CI_lower = c(0.1, 0.3, -0.3),
-  CI_upper = c(0.3, 0.7, 0.1)
-)
-
-# Call the function, gg_plot is a ggplot object
-gg_forest <- forest_plot(df, "Estimate", "CI_lower", "CI_upper", "Treatment")
-gg_plot
-
-# Retrieve the plot construction code
-call_forest <- ggcall(gg_plot)
-
-# Optionally: Style the code with styler
-# install.packages("styler")
-styler::style_text(paste(deparse(call_forest), collapse = "\n"))
-
-# Optionally: add assignments to call
-styler::style_text(paste(deparse(ggcall_add_assignments(call_forest)), collapse = "\n"))
-
-# Optionally: reevaulate the call
-eval_ggcall(call_forest)
-```
+[Please access such templates here](https://github.com/Polkas/ggcall_example).
 
 ## Implementation in Your Own Package
 
 The ggcall can be implemented as a standalone solution.
 
 A "standalone" file implements a minimum set of functionality in such a way that it can be copied into another package. 
-`usethis::use_standalone()` makes it easy to get such a file into your own repo/package and later update it if needed.
+`usethis::use_standalone()` makes it easy to get such a file into your own repo/package and later update it if needed.  
 [Example of standalone file in another package, rlang](https://github.com/r-lib/rlang/blob/main/R/standalone-purrr.R)
+
 
 The `usethis` >= 2.2.0 is required.
 
-```
+```r
 install.packages("usethis")
 ```
 
@@ -72,28 +36,28 @@ STANDALONE means copy paste the files and add dependencies to your own package.
 
 Please create an R package if not having such yet.
 
-```
+```r
 usethis::create_package()
 ```
 
 WITH `patchwork` support
 
-```
+```r
 # Add ggplot2, patchwork as your package dependencies
 # copy paste the ggcall.R file to your own package R directory
 # copy paste the patchwork.R file to your own package R directory
 
-usethis::use_standalone("polkas/ggcall", "patchwork.R", ref = "v0.3.3")
+usethis::use_standalone("polkas/ggcall", "patchwork.R", ref = "v0.3.4")
 # you may need to update the files time to time with usethis::use_standalone
 ```
 
 WITHOUT `patchwork` support
 
-```
+```r
 # Add ggplot2as your package dependencies
 # copy paste the ggcall.R file to your own package R directory
 
-usethis::use_standalone("polkas/ggcall", "ggcall.R", ref = "v0.3.3")
+usethis::use_standalone("polkas/ggcall", "ggcall.R", ref = "v0.3.4")
 # you may need to update the files time to time with usethis::use_standalone
 ```
 
@@ -118,6 +82,44 @@ GENERAL COMMENTS:
 ```
 # Consider moving the ggplot2 from DESCRIPTION Imports to Depends 
 # if your users will benefit from extending results with further layers
+```
+
+## Example
+
+[The ggcall_example repository](https://github.com/Polkas/ggcall_example) contains a simple implementation of ggcall.
+`forest_plot` and `barbell_plot` functions are a part of `ggcall.example` package.
+Typically, it will be a function returning `ggplot2` object from your own R package where you implemented `ggcall`.
+
+```r
+remotes::install_github("https://github.com/Polkas/ggcall_example")
+library(ggcall.example)
+
+# Print the body of the function
+forest_plot
+
+df <- data.frame(
+  Treatment = c("Treatment A", "Treatment B", "Treatment C"),
+  Estimate = c(0.2, 0.5, -0.1),
+  CI_lower = c(0.1, 0.3, -0.3),
+  CI_upper = c(0.3, 0.7, 0.1)
+)
+
+# Call the function, gg_plot is a ggplot object
+gg_forest <- forest_plot(df, "Estimate", "CI_lower", "CI_upper", "Treatment")
+gg_forest
+
+# Retrieve the plot construction code
+call_forest <- ggcall(gg_forest)
+
+# Optionally: Style the code with styler
+# install.packages("styler")
+styler::style_text(paste(deparse(call_forest), collapse = "\n"))
+
+# Optionally: add assignments to call
+styler::style_text(paste(deparse(ggcall_add_assignments(call_forest)), collapse = "\n"))
+
+# Optionally: reevaulate the call
+eval_ggcall(call_forest)
 ```
 
 ## Note
