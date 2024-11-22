@@ -1,4 +1,4 @@
-# ggcall v0.3.3
+# ggcall v0.3.4
 
 * Added support for usethis standalone, `usethis::use_standalone` can be used with ggcall.
 * Added a reference to `ggcall.example` package, an example implementation of ggcall.
